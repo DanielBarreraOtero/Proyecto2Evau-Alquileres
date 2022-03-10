@@ -102,8 +102,22 @@ public class Empresa implements Serializable{
 	 * @param nombre
 	 */
 	public Empresa(String cIF, String nombre) {
+//		Generamos TreeMaps vacios para asegurarnos de que todas las empresas los tienen.
+		TreeMap<String , Oficina > Oficinas = new TreeMap<String , Oficina >();
+		TreeMap<String , Persona > Personas = new TreeMap<String , Persona >();
+		TreeMap<String , Vehiculo > Vehiculos = new TreeMap<String , Vehiculo >();
+		TreeMap<String , Vehiculo > VehiculosAlquilados = new TreeMap<String , Vehiculo >();
+		TreeMap<String , Alquiler > Alquileres = new TreeMap<String , Alquiler >();
+		TreeMap<String , Categoria > Categorias = new TreeMap<String , Categoria >();
+		
 		setCIF(cIF);
 		setNombre(nombre);
+		setOficinas(Oficinas);
+		setPersonas(Personas);
+		setVehiculos(Vehiculos);
+		setVehiculosAlquilados(VehiculosAlquilados);
+		setAlquileres(Alquileres);
+		setCategorias(Categorias);
 	}
 	/**Constructor copia.
 	 */

@@ -47,70 +47,41 @@ public class Principal {
 
 
 		do {
-			eleccion = InterfacesDeUsuario.MenuOpciones("ALQUILER DE VEHICULOS", "-", m, "A-B-C-D-E-F-G", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
+			eleccion = InterfacesDeUsuario.MenuOpciones("ALQUILER DE VEHICULOS", "-", m, "A-B-C-D-E-F-G-H", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
 
 			switch (eleccion.toUpperCase()) {
 			case "A": {
-				String[] o = {"1 - CREAR NUEVA OFICINA", "2 - MODIFICAR OFICINA", "3 - ELIMINAR OFICINA","4 - LISTADOS", "5 - VOLVER AL MENÚ"};
-
-				do {
-					eleccion = InterfacesDeUsuario.MenuOpciones("GESTIÓN DE OFICINAS", "-", o, "1-2-3-4", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
-
-					switch (eleccion.toUpperCase()) {
-					case "1": {
-
-					}
-					case "2": {
-
-					}
-					case "3": {
-
-					}
-					case "4": {
-
-					}
-					}
-
-				} while (!eleccion.equalsIgnoreCase("5"));
-
+				InterfacesDeUsuario.GestionOficinas(eleccion, emp);
+				break;
 			}
 			case "B": {
-				String[] o = {"1 - CREAR NUEVO CLIENTE", "2 - MODIFICAR CLIENTE", "3 - ELIMINAR CLIENTE","4 - LISTADOS", "5 - VOLVER AL MENÚ"};
-
-				do {
-					eleccion = InterfacesDeUsuario.MenuOpciones("GESTIÓN DE OFICINAS", "-", o, "1-2-3-4", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
-
-					switch (eleccion.toUpperCase()) {
-					case "1": {
-
-					}
-					case "2": {
-
-					}
-					case "3": {
-
-					}
-					case "4": {
-
-					}
-					}
-
-				} while (!eleccion.equalsIgnoreCase("5"));
+				InterfacesDeUsuario.GestionClientes(eleccion, emp);
+				break;
 			}
 			case "C": {
+//				TODO
+				break;
 			}
 			case "D": {
+//				TODO
+				break;
 			}
 			case "E": {
+//				TODO
+				break;
 			}
 			case "F": {
+//				TODO
+				break;
 			}
 			case "G": {
 				try {
 					Serializacion.writeToFile(emp);
 				} catch (IOException e) {
-					System.out.println("El archivo no se ha guardado correctamente.");
+					System.out.println("No se ha podido gruardar el archivo.");
 				}
+//				TODO preguntarle a sito si hay algo contrario al break para controlar que el archivo se ha guardado.
+				break;
 			}
 			}
 
