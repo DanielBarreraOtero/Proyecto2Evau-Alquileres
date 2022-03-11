@@ -20,7 +20,7 @@ public class Principal {
 		// TODO Auto-generated method stub
 
 		Empresa emp = null;
-		String[] m = new String[7];
+		String[] m = new String[9];
 		String eleccion = "";
 
 		try {
@@ -39,23 +39,24 @@ public class Principal {
 		m[0] = "A - GESTIÓN DE OFICINAS";
 		m[1] = "B - GESTIÓN DE CLIENTES";
 		m[2] = "C - GESTIÓN DE EMPLEADOS";
-		m[3] = "D - GESTIÓN DE ALQUILERES";
-		m[4] = "E - GESTIÓN DE CATEGORIAS";
-		m[4] = "F - GESTIÓN DE VEHICULOS";
-		m[5] = "G - GUARDAR PROGRESO";
-		m[6] = "H - GUARDAR Y SALIR";
+		m[3] = "D - GESTIÓN DE VEHICULOS";
+		m[4] = "E - GESTIÓN DE ALQUILERES";
+		m[5] = "F - GESTIÓN DE CATEGORIAS";
+		m[6] = "G - GESTIÓN DE CARNETS";
+		m[7] = "H - GUARDAR PROGRESO";
+		m[8] = "I - GUARDAR Y SALIR";
 
 
 		do {
-			eleccion = InterfacesDeUsuario.MenuOpciones("ALQUILER DE VEHICULOS", "-", m, "A-B-C-D-E-F-G-H", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
+			eleccion = InterfacesDeUsuario.MenuOpciones("ALQUILER DE VEHICULOS", "-", m, "A-B-C-D-E-F-G-H-I", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
 
 			switch (eleccion.toUpperCase()) {
 			case "A": {
-				InterfacesDeUsuario.GestionOficinas(eleccion, emp);
+				InterfacesDeUsuario.GestionOficinas(emp);
 				break;
 			}
 			case "B": {
-				InterfacesDeUsuario.GestionClientes(eleccion, emp);
+				InterfacesDeUsuario.GestionClientes(emp);
 				break;
 			}
 			case "C": {
@@ -75,17 +76,21 @@ public class Principal {
 				break;
 			}
 			case "G": {
+//				TODO
+				break;
+			}
+			case "H": {
 				try {
 					Serializacion.writeToFile(emp);
 				} catch (IOException e) {
 					System.out.println("No se ha podido gruardar el archivo.");
 				}
-//				TODO preguntarle a sito si hay algo contrario al break para controlar que el archivo se ha guardado.
+				//			TODO preguntarle a sito si hay algo contrario al break para controlar que el archivo se ha guardado.
 				break;
 			}
 			}
 
-		} while(!eleccion.equalsIgnoreCase("H") );
+		} while(!eleccion.equalsIgnoreCase("I") );
 
 
 

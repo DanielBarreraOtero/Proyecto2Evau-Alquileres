@@ -94,9 +94,9 @@ public class Oficina implements Comparable<Oficina>, Serializable{
 	@Override
 	public String toString() {
 		if(Aeropuerto) {
-			return getCodigo() + ", " + getProvincia() + ", " + getLocalidad() + " | " + getDescrp() + "Se encuentra en un aeropuerto.";
+			return getCodigo() + ", " + getProvincia() + ", " + getLocalidad() + " | " + getDescrp() + " | Se encuentra en un aeropuerto.";
 		}else {
-			return getCodigo() + ", " + getProvincia() + ", " + getLocalidad() + ", " + getDescrp() + "No se encuentra en un aeropuerto.";
+			return getCodigo() + ", " + getProvincia() + ", " + getLocalidad() + " | " + getDescrp() + " | No se encuentra en un aeropuerto.";
 		}
 	}
 	@Override
