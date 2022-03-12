@@ -81,11 +81,34 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		setAp2(ap2);
 		setFechaNac(fechaNac);
 	}
+	/**Constructor sin ap2.
+	 * 
+	 * @param dNI
+	 * @param nombre
+	 * @param ap1
+	 * @param fechaNac
+	 */
+	public Persona(String dNI, String nombre, String ap1, GregorianCalendar fechaNac) {
+		setDNI(dNI);
+		setNombre(nombre);
+		setAp1(ap1);
+		setFechaNac(fechaNac);
+	}
+	/**Constructor simple.
+	 * 
+	 * @param dNI
+	 * @param nombre
+	 * @param ap1
+	 */
 	public Persona(String dNI, String nombre, String ap1) {
 		setDNI(dNI);
 		setNombre(nombre);
 		setAp1(ap1);
 	}
+	/**Constructor copia.
+	 * 
+	 * @param o
+	 */
 	public Persona(Persona o) {
 		setDNI(o.getDNI());
 		setNombre(o.getNombre());
@@ -93,11 +116,13 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		setAp2(o.getAp2());
 		setFechaNac(o.getFechaNac());
 	}
+	/**Constructor comparacion.
+	 * 
+	 * @param dni
+	 */
 	public Persona (String dni) {
 		setDNI(dni);
 	}
-
-
 
 	//		METODOS
 

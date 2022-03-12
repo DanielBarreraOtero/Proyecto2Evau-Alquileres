@@ -1,5 +1,9 @@
 package metodosUI;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -7,11 +11,15 @@ import clases.Alquiler;
 import clases.CarnetConducir;
 import clases.Categoria;
 import clases.Cliente;
+import clases.Empleado;
 import clases.Empresa;
 import clases.Oficina;
 import clases.Persona;
 import clases.Vehiculo;
 import metodos.Metodos;
+import miscomparadores.OficinaAeropuerto;
+import miscomparadores.OficinaLocalidad;
+import miscomparadores.OficinaProvincia;
 
 public class InterfacesDeUsuario {
 
@@ -54,18 +62,33 @@ public class InterfacesDeUsuario {
 		System.out.println();
 		return eleccion;
 	}
-//	TODO 
-	public static void MostrarListado(TreeMap<String, Object> lista, Object comparator) {
+	/**Convierte el Treemap en Arraylist, lo ordena por el comparator elegido y muestra un listado.
+	 * 
+	 * @param <T>
+	 * @param lista
+	 * @param comparator
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> void MostrarListado(TreeMap<String, Object> lista, Object comparator) {
+//		Para poder hacer que el metodo funcione con todos los objetos, tenemos que castear el arraylist y el comparator
+		ArrayList<T> L = (ArrayList<T>) new ArrayList<Object>(lista.values());
+		Comparator<? super T> compa = (Comparator<? super T>) comparator;
+		Collections.sort(L, compa);
 		
+		for (Object i: L) {
+			System.out.println(i);
+		}
 	}
-//	TODO 
+	/**Convierte el Treemap en Arraylist y muestra un listado.
+	 * 
+	 * @param lista
+	 */
 	public static void MostrarListado(TreeMap<String, Object> lista) {
 		ArrayList<Object> L = new ArrayList<Object>(lista.values());
 		
 		for (Object i: L) {
 			System.out.println(i);
 		}
-		
 	}
 	
 //	--- GESTION DE OFICINAS ---
@@ -84,22 +107,27 @@ public class InterfacesDeUsuario {
 
 			switch (eleccion) {
 			case "1": {
+				Metodos.Titular(Metodos.RodeaCadena("NUEVA OFICINA", "-", 5), "-");
 				CrearOficina(emp);
 				break;
 			}
 			case "2": {
+				Metodos.Titular(Metodos.RodeaCadena("MODIFICAR OFICINA", "-", 5), "-");
 				ModificaOficina(emp);
 				break;
 			}
 			case "3": {
+				Metodos.Titular(Metodos.RodeaCadena("ELIMINAR OFICINA", "-", 5), "-");
 				EliminaOficina(emp);
 				break;
 			}
 			case "4": {
+				Metodos.Titular(Metodos.RodeaCadena("LISTADOS DE OFICINA", "-", 5), "-");
 				ListadosOficina(emp);
 				break;
 			}
 			case "5": {
+				Metodos.Titular(Metodos.RodeaCadena("BUSCAR OFICINA", "-", 5), "-");
 				BuscarOficina(emp);
 				break;
 			}
@@ -117,8 +145,6 @@ public class InterfacesDeUsuario {
 		String codigo, descrp, localidad, provincia, aero;
 		boolean aeropuerto = false;
 		Oficina o;
-		
-		Metodos.Titular(Metodos.RodeaCadena("NUEVA OFICINA", "-", 5), "-");
 		
 		do {
 			System.out.print("Código: ");
@@ -168,8 +194,6 @@ public class InterfacesDeUsuario {
 		String cod, descrp, localidad, provincia, aero;
 		boolean aeropuerto = false, ofiExiste = false;
 		Oficina o;
-		
-		Metodos.Titular(Metodos.RodeaCadena("MODIFICAR OFICINA", "-", 5), "-");
 		
 		do {
 			System.out.print("Código de la oficina que quiere modificar: ");
@@ -227,7 +251,6 @@ public class InterfacesDeUsuario {
 		Scanner lector = new Scanner(System.in);
 		String cod;
 		
-		Metodos.Titular(Metodos.RodeaCadena("ELIMINAR OFICINA", "-", 5), "-");
 		System.out.print("Código de la oficina que desea eliminar: ");
 		cod = lector.nextLine();
 		
@@ -251,17 +274,20 @@ public class InterfacesDeUsuario {
 
 			switch (eleccion) {
 			case "1": {
-//				TODO
-				MostrarListado(emp.getOficinas());
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
+				break;
 			}
 			case "2": {
-
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()), new OficinaProvincia());
+				break;
 			}
 			case "3": {
-
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()), new OficinaLocalidad());
+				break;
 			}
 			case "4": {
-
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()), new OficinaAeropuerto());
+				break;
 			}
 			}
 		} while (!eleccion.equals("5"));
@@ -312,7 +338,8 @@ public class InterfacesDeUsuario {
 
 			switch (eleccion) {
 			case "1": {
-				
+				Metodos.Titular(Metodos.RodeaCadena("NUEVO CLIENTE", "-", 5), "-");
+
 				break;
 			}
 			case "2": { 
@@ -331,7 +358,7 @@ public class InterfacesDeUsuario {
 
 		} while (!eleccion.equalsIgnoreCase("5"));
 	}
-	
+//	TODO
 	public static void CrearCliente(Empresa emp) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
@@ -340,7 +367,6 @@ public class InterfacesDeUsuario {
 		boolean TieneTarjeta = false;
 		Oficina o;
 		
-		Metodos.Titular(Metodos.RodeaCadena("NUEVO CLIENTE", "-", 5), "-");
 		
 		
 		
@@ -351,6 +377,163 @@ public class InterfacesDeUsuario {
 	
 //	--- GESTION DE EMPLEADOS ---
 //	TODO
+	
+//	TODO añadir un transladar empleado de oficina.
+	public static void GestionEmpelados(Empresa emp) {
+		String[] o = {"1 - CREAR NUEVO EMPLEADO", "2 - MODIFICAR EMPLEADO", "3 - ELIMINAR EMPLEADO", "4 - LISTADOS", "5 - BUSCAR EMPLEADO", "6 - VOLVER AL MENÚ"};
+		String eleccion;
+
+		do {
+			eleccion = MenuOpciones("GESTIÓN DE EMPLEADOS", "-", o, "1-2-3-4-5-6", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
+
+			switch (eleccion) {
+			case "1": {
+				Metodos.Titular(Metodos.RodeaCadena("NUEVO EMPLEADO", "-", 5), "-");
+				CrearEmpleados(emp);
+				break;
+			}
+			case "2": {
+				ModificaEmpleados(emp);
+				break;
+			}
+			case "3": {
+				EliminaEmpleados(emp);
+				break;
+			}
+			case "4": {
+				ListadosEmpleados(emp);
+				break;
+			}
+			case "5": {
+				BuscarEmpleados(emp);
+				break;
+			}
+			}
+
+		} while (!eleccion.equals("6"));
+	}
+	
+	public static void CrearEmpleados(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String dNI, nombre, ap1, ap2, ofi;
+		int dia, mes, año;
+		Empleado o;
+		
+		System.out.print("Nombre: ");
+		nombre = lector.nextLine();
+		
+		System.out.print("Primer apellido: ");
+		ap1 = lector.nextLine();
+		
+		System.out.print("Segundo apellido: ");
+		ap2 = lector.nextLine();
+		
+		do {
+			System.out.print("DNI: ");
+			dNI = lector.nextLine();
+			
+			if (!Metodos.ValidarDNI(dNI)) {
+				System.out.println("DNI inválido.");
+			}
+		} while(!Metodos.ValidarDNI(dNI));
+		
+		System.out.println("");
+		System.out.println("Fecha de Nacimiento.");
+		System.out.print("Día: ");
+		dia = lector.nextInt();
+		
+		System.out.print("Mes: ");
+		mes = lector.nextInt();
+		
+		System.out.print("Año: ");
+		año = lector.nextInt();
+		
+		GregorianCalendar FecNac = new GregorianCalendar(año, mes, dia);
+		
+		System.out.println("");
+		System.out.println("Fecha de Alta.");
+		System.out.print("Día: ");
+		dia = lector.nextInt();
+		
+		System.out.print("Mes: ");
+		mes = lector.nextInt();
+		
+		System.out.print("Año: ");
+		año = lector.nextInt();
+		lector.nextLine();
+		
+		GregorianCalendar FecAlta = new GregorianCalendar(año, mes, dia);
+		System.out.println("");
+
+//		TODO MOSTRAR LISTADO DE OFICINAS
+		do {
+			System.out.println("Elija una oficina: ");
+			ofi = lector.nextLine();
+			
+			if(!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR")) {
+				System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el empleado).");
+			}
+			
+		} while (!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR"));
+		
+		if(!ofi.equalsIgnoreCase("SALIR")) {
+			if(ap2 != "") {
+				o = new Empleado(dNI, nombre, ap1, ap2, FecNac, FecAlta, emp.getOficinas().get(ofi));
+			} else {
+				o = new Empleado(dNI, nombre, ap1, FecNac, FecAlta, emp.getOficinas().get(ofi));
+			}
+			emp.AñadirPersona(o);
+		} else {
+			System.out.println("Es necesaria una oficina, el empleado no se ha creado.");
+		}
+		System.out.println("");
+	}
+
+	public static void ModificaEmpleados(Empresa emp) {
+		
+	}
+
+	public static void EliminaEmpleados(Empresa emp) {
+		
+	}
+
+	public static void ListadosEmpleados(Empresa emp) {
+		
+	}
+
+	public static void BuscarEmpleados(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String nom;
+		boolean emplExiste = false;
+		
+		System.out.println("Puede escribir 'salir' para cancelar.");
+		do {
+			System.out.print("Nombre Completo del empleado que quiere buscar (Ap1 Ap2, Nombre): ");
+			nom = lector.nextLine();
+
+			if(!emp.getPersonas().containsKey(nom)/* || emp.getPersonas().get(dNI).getClass().getSimpleName() != "Empleado"*/) {
+				System.out.println("El empleado que busca no existe, mire el listado e intentelo de nuevo.");
+			} else {
+				emplExiste = true;
+			}
+		} while(!emp.getPersonas().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
+
+		if (emplExiste) {
+//			TODO CHECKEAR EL TOSTRING DE EMPLEADO, FECHAS MAL
+			System.out.println(emp.getPersonas().get(nom));
+		}
+		System.out.println();
+	}
+
+
+
+	
+	
+	
+	
+	
 	
 	
 //	--- GESTION DE VEHICULOS ---
@@ -385,22 +568,27 @@ public class InterfacesDeUsuario {
 
 			switch (eleccion) {
 			case "1": {
+				Metodos.Titular(Metodos.RodeaCadena("NUEVO CARNET", "-", 5), "-");
 				CrearCarnet(emp);
 				break;
 			}
 			case "2": { 
+				Metodos.Titular(Metodos.RodeaCadena("MODIFICAR CARNET", "-", 5), "-");
 				ModificarCarnet(emp);
 				break;
 			}
 			case "3": {
+				Metodos.Titular(Metodos.RodeaCadena("ELIMINAR CARNET", "-", 5), "-");
 				Eliminacarnet(emp);
 				break;
 			}
 			case "4": {
+				Metodos.Titular(Metodos.RodeaCadena("LISTADOS DE CARNET", "-", 5), "-");
 				ListadoCarnet(emp);
 				break;
 			}
 			case "5": {
+				Metodos.Titular(Metodos.RodeaCadena("BUSCAR CARNET", "-", 5), "-");
 				BuscarCarnet(emp);
 				break;
 			}
@@ -417,8 +605,6 @@ public class InterfacesDeUsuario {
 		Scanner lector = new Scanner(System.in);
 		String codigo, descrp;
 		CarnetConducir o;
-		
-		Metodos.Titular(Metodos.RodeaCadena("NUEVO CARNET", "-", 5), "-");
 		
 		System.out.print("Código: ");
 		codigo = lector.nextLine();
@@ -444,8 +630,6 @@ public class InterfacesDeUsuario {
 		String cod, descrp;
 		boolean carExiste = false;
 		CarnetConducir o;
-
-		Metodos.Titular(Metodos.RodeaCadena("MODIFICAR CARNET", "-", 5), "-");
 
 		System.out.print("Código del carnet que quiere modificar: ");
 		cod = lector.nextLine();
@@ -480,7 +664,6 @@ public class InterfacesDeUsuario {
 		Scanner lector = new Scanner(System.in);
 		String cod;
 		
-		Metodos.Titular(Metodos.RodeaCadena("ELIMINAR CARNET", "-", 5), "-");
 		System.out.print("Código del carnet que desea eliminar: ");
 		cod = lector.nextLine();
 		

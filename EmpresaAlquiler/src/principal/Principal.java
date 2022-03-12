@@ -10,9 +10,9 @@ import clases.Empleado;
 import clases.Empresa;
 import clases.Oficina;
 import clases.Persona;
-import comparators.PersonaNombreCompleto;
 import metodosSer.Serializacion;
 import metodosUI.InterfacesDeUsuario;
+import miscomparadores.PersonaNombreCompleto;
 
 public class Principal {
 
@@ -60,7 +60,7 @@ public class Principal {
 				break;
 			}
 			case "C": {
-//				TODO
+				InterfacesDeUsuario.GestionEmpelados(emp);
 				break;
 			}
 			case "D": {
@@ -76,16 +76,16 @@ public class Principal {
 				break;
 			}
 			case "G": {
-//				TODO
+				InterfacesDeUsuario.GestionCarnets(emp);
 				break;
 			}
 			case "H": {
 				try {
 					Serializacion.writeToFile(emp);
+					System.out.println("El archivo se ha guardado correctamente.");
 				} catch (IOException e) {
 					System.out.println("No se ha podido gruardar el archivo.");
 				}
-				//			TODO preguntarle a sito si hay algo contrario al break para controlar que el archivo se ha guardado.
 				break;
 			}
 			}
