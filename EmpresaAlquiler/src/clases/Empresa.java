@@ -15,7 +15,8 @@ public class Empresa implements Serializable{
 	private String CIF;
 	private String Nombre;
 	private TreeMap<String , Oficina > Oficinas;
-	private TreeMap<String , Persona > Personas;
+	private TreeMap<String , Cliente > Clientes;
+	private TreeMap<String , Empleado > Empleados;
 	private TreeMap<String , Vehiculo > Vehiculos;
 	private TreeMap<String , Vehiculo > VehiculosAlquilados;
 	private TreeMap<String , Alquiler > Alquileres;
@@ -42,11 +43,17 @@ public class Empresa implements Serializable{
 	private void setOficinas(TreeMap<String, Oficina> oficinas) {
 		Oficinas = oficinas;
 	}
-	public TreeMap<String, Persona> getPersonas() {
-		return Personas;
+	public TreeMap<String, Cliente> getClientes() {
+		return Clientes;
 	}
-	private void setPersonas(TreeMap<String, Persona> personas) {
-		Personas = personas;
+	private void setClientes(TreeMap<String, Cliente> clientes) {
+		Clientes = clientes;
+	}
+	public TreeMap<String, Empleado> getEmpleados() {
+		return Empleados;
+	}
+	private void setEmpleados(TreeMap<String, Empleado> empleados) {
+		Empleados = empleados;
 	}
 	public TreeMap<String, Vehiculo> getVehiculos() {
 		return Vehiculos;
@@ -54,7 +61,6 @@ public class Empresa implements Serializable{
 	private void setVehiculos(TreeMap<String, Vehiculo> vehiculos) {
 		Vehiculos = vehiculos;
 	}
-//	
 	public TreeMap<String, Vehiculo> getVehiculosAlquilados() {
 		return VehiculosAlquilados;
 	}
@@ -87,18 +93,20 @@ public class Empresa implements Serializable{
 	 * @param cIF
 	 * @param nombre
 	 * @param oficinas
-	 * @param personas
+	 * @param clientes
+	 * @param empleados
 	 * @param vehiculos
 	 * @param vehiculosAlquilados
 	 * @param alquileres
 	 * @param categorias
 	 * @param carnets
 	 */
-	public Empresa(String cIF, String nombre, TreeMap<String, Oficina> oficinas, TreeMap<String, Persona> personas, TreeMap<String, Vehiculo> vehiculos, TreeMap<String, Vehiculo> vehiculosAlquilados, TreeMap<String, Alquiler> alquileres, TreeMap<String, Categoria> categorias, TreeMap<String, CarnetConducir> carnets) {
+	public Empresa(String cIF, String nombre, TreeMap<String, Oficina> oficinas, TreeMap<String, Cliente> clientes, TreeMap<String, Empleado> empleados, TreeMap<String, Vehiculo> vehiculos, TreeMap<String, Vehiculo> vehiculosAlquilados, TreeMap<String, Alquiler> alquileres, TreeMap<String, Categoria> categorias, TreeMap<String, CarnetConducir> carnets) {
 		setCIF(cIF);
 		setNombre(nombre);
 		setOficinas(oficinas);
-		setPersonas(personas);
+		setClientes(clientes);
+		setEmpleados(empleados);
 		setVehiculos(vehiculos);
 		setVehiculosAlquilados(vehiculosAlquilados);
 		setAlquileres(alquileres);
@@ -113,7 +121,8 @@ public class Empresa implements Serializable{
 	public Empresa(String cIF, String nombre) {
 //		Generamos TreeMaps vacios para asegurarnos de que todas las empresas los tienen.
 		TreeMap<String , Oficina > Oficinas = new TreeMap<String , Oficina >();
-		TreeMap<String , Persona > Personas = new TreeMap<String , Persona >();
+		TreeMap<String , Cliente > Clientes = new TreeMap<String , Cliente >();
+		TreeMap<String , Empleado > Empleados = new TreeMap<String , Empleado >();
 		TreeMap<String , Vehiculo > Vehiculos = new TreeMap<String , Vehiculo >();
 		TreeMap<String , Vehiculo > VehiculosAlquilados = new TreeMap<String , Vehiculo >();
 		TreeMap<String , Alquiler > Alquileres = new TreeMap<String , Alquiler >();
@@ -123,7 +132,8 @@ public class Empresa implements Serializable{
 		setCIF(cIF);
 		setNombre(nombre);
 		setOficinas(Oficinas);
-		setPersonas(Personas);
+		setClientes(Clientes);
+		setEmpleados(Empleados);
 		setVehiculos(Vehiculos);
 		setVehiculosAlquilados(VehiculosAlquilados);
 		setAlquileres(Alquileres);
@@ -138,13 +148,19 @@ public class Empresa implements Serializable{
 		setCIF(o.getCIF());
 		setNombre(o.getNombre());
 		setOficinas(o.getOficinas());
-		setPersonas(o.getPersonas());
+		setClientes(o.getClientes());
+		setEmpleados(o.getEmpleados());
 		setVehiculos(o.getVehiculos());
 		setVehiculosAlquilados(o.getVehiculosAlquilados());
 		setAlquileres(o.getAlquileres());
 		setCategorias(o.getCategorias());
 		setCarnets(o.getCarnets());
 	}
+	
+//	METODOS
+	
+//	OFICINAS
+	
 	
 //	------METODOS------
 	
@@ -167,37 +183,45 @@ public class Empresa implements Serializable{
 	
 //	Personas
 	
-	/**Añade una persona (cliente/empleado) al TreeMap de Personas.
+	
+//	CLIENTES
+	
+	/**Añade un cliente al TreeMap de Clientes.
 	 * 
 	 * @param o
 	 */
-	public void AñadirPersona(Persona o) {
-		Personas.put(o.NombreCompleto(), o);
+	public void AñadirCliente(Cliente o) {
+		Clientes.put(o.NombreCompleto(), o);
 	}
-	/**Elimina una persona (cliente/empleado) del TreeMap de Personas en base a su DNI.
-	 * 
-	 * @param dNI
-	 */
-	public void BorrarPersonaDNI(String dNI) {
-		ArrayList<Persona> a = new ArrayList<Persona>(Personas.values()); /*Convertimos el TreeMap en un ArrayList*/
-		
-		int i = 0;
-		while (!dNI.equals(a.get(i).getDNI())) { /*Recorremos el ArrayList hasta que damos con la persona que tiene el DNI que buscamos*/
-			i++;
-		}
-		
-//		Una vez sabemos a quien pertenece el DNI podemos utlizar el metodo NombreComopleto para obtener su Key
-		Personas.remove(a.get(i).NombreCompleto());
-	}
-	/**Elimina una persona (cliente/empleado) del TreeMap de Personas en base a su NombreCompleto.
+	/**Elimina un cliente del TreeMap de Clientes en base a su NombreCompleto.
 	 * 
 	 * @param nombreCompleto
 	 */
-	public void BorrarPersonaNC(String nombreCompleto) {
-		Personas.remove(nombreCompleto);
+	public void BorrarCliente(String nombreCompleto) {
+		Clientes.remove(nombreCompleto);
 	}
 	
 //	Vehiculos
+	
+	
+//	EMPLEADOS
+	
+	/**Añade un empleado al TreeMap de Empleados.
+	 * 
+	 * @param o
+	 */
+	public void AñadirEmpleado(Empleado o) {
+		Empleados.put(o.NombreCompleto(), o);
+	}
+	/**Elimina un empleado del TreeMap de Empleados en base a su NombreCompleto.
+	 * 
+	 * @param nombreCompleto
+	 */
+	public void BorrarEmpleado(String nombreCompleto) {
+		Empleados.remove(nombreCompleto);
+	}
+	
+//	VEHICULOS
 	
 	/**Añade un vehiculo al TreeMap de Vehiculos.
 	 * 
@@ -216,20 +240,6 @@ public class Empresa implements Serializable{
 	
 //	Vehiculos Alquilados
 	
-	/**Añade un vehiculo al TreeMap de VehiculosAlquilados.
-	 * 
-	 * @param o
-	 */
-	public void AñadirVehiculoAlquilado(Vehiculo o) {
-		VehiculosAlquilados.put(o.getMatricula(), o);
-	}
-	/**Elimina un vehiculo del TreeMap de VehiculosAlquilados.
-	 * 
-	 * @param matricula
-	 */
-	public void BorrarVehiculoAlquilado(String matricula) {
-		VehiculosAlquilados.remove(matricula);
-	}
 	/**Añade un vehiculo al TreeMap de VehiculosAlquilados y lo elimina del de Vehiculos.
 	 * 
 	 * @param o
@@ -247,7 +257,26 @@ public class Empresa implements Serializable{
 		BorrarVehiculoAlquilado(o.getMatricula());
 	}
 	
-//	Alquileres
+	
+//	VEHICULOS ALQUILADOS
+	
+	/**Añade un vehiculo al TreeMap de VehiculosAlquilados.
+	 * 
+	 * @param o
+	 */
+	public void AñadirVehiculoAlquilado(Vehiculo o) {
+		VehiculosAlquilados.put(o.getMatricula(), o);
+	}
+	/**Elimina un vehiculo del TreeMap de VehiculosAlquilados.
+	 * 
+	 * @param matricula
+	 */
+	public void BorrarVehiculoAlquilado(String matricula) {
+		VehiculosAlquilados.remove(matricula);
+	}
+	
+
+//	ALQUILERES
 	
 	/**Añade un alquiler al TreeMap de Alquileres.
 	 * 
@@ -266,6 +295,9 @@ public class Empresa implements Serializable{
 	
 //	Categorias
 	
+	
+//	CATEGORIAS
+	
 	/**Añade una categoria al TreeMap de Categorias.
 	 * 
 	 * @param o
@@ -281,7 +313,7 @@ public class Empresa implements Serializable{
 		Categorias.remove(codigo);
 	}
 	
-//	Carnets de Conducir
+//	CARNETS DE CONDUCIR
 	
 	/**Añade un carnet al TreeMap de Carnets.
 	 * 

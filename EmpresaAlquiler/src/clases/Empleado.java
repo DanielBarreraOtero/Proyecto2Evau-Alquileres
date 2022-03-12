@@ -96,7 +96,7 @@ public class Empleado extends Persona{
 		String FN = getFechaNac().DAY_OF_MONTH + "/" + getFechaNac().MONTH + "/" + getFechaNac().YEAR;
 		@SuppressWarnings("static-access")
 		String FA = FechaAlta.DAY_OF_MONTH + "/" + getFechaAlta().MONTH + "/" + FechaAlta.YEAR;
-		return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + FN + ", " + getOficinaActual() + " | " + FA;
+		return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + getEdad() + " años " + FN + ", Oficina:" + getOficinaActual() + " | Fecha alta:" + FA;
 	}
 	
 	

@@ -96,8 +96,9 @@ public class Principal {
 
 		try {
 			Serializacion.writeToFile(emp);
+			System.out.println("El archivo se ha guardado correctamente.");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("No se ha podido gruardar el archivo.");
 		}
 
 	}

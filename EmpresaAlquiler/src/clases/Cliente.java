@@ -53,6 +53,7 @@ public class Cliente extends Persona{
 		super(dNI, nombre, ap1, ap2, fechaNac);
 		setCarnet(carnet);
 		setTieneTarjeta(tieneTarjeta);
+		setNtarjeta("");
 	}
 	public Cliente(Cliente o) {
 		super(o.getDNI(), o.getNombre(), o.getAp1(), o.getAp2(), o.getFechaNac());
@@ -69,9 +70,9 @@ public class Cliente extends Persona{
 	@Override
 	public String toString () {
 		if (TieneTarjeta) {
-			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + getFechaNac() + ", " + Carnet + " " + Ntarjeta;
+			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". Nº Tarjeta: " + Ntarjeta;
 		}else {
-			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + getFechaNac() + ", " + Carnet;
+			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". No tiene tarjeta de cliente.";
 		}
 	}
 	

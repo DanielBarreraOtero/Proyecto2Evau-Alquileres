@@ -92,6 +92,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		setDNI(dNI);
 		setNombre(nombre);
 		setAp1(ap1);
+		setAp2("");
 		setFechaNac(fechaNac);
 	}
 	/**Constructor simple.
@@ -104,6 +105,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		setDNI(dNI);
 		setNombre(nombre);
 		setAp1(ap1);
+		setAp2("");
 	}
 	/**Constructor copia.
 	 * 
