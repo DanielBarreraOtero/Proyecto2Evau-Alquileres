@@ -1,7 +1,7 @@
 package clases;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class CocheE extends Electrico {
 
@@ -47,7 +47,7 @@ public class CocheE extends Electrico {
 	 * @param nplazas
 	 * @param tipo
 	 */
-	public CocheE(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, double tiempoRecarga, int nplazas, String tipo) {
+	public CocheE(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, double tiempoRecarga, int nplazas, String tipo) {
 		super(matricula, marca, modelo, color, fechaAlta, kms, categoria, oficinaActual, carnetsValidos, autonomia, tiempoRecarga);
 		setNplazas(nplazas);
 		setTipo(tipo);
@@ -65,7 +65,7 @@ public class CocheE extends Electrico {
 	 * @param nplazas
 	 * @param tipo
 	 */
-	public CocheE(String matricula, String marca, String modelo, GregorianCalendar fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, int nplazas, String tipo){
+	public CocheE(String matricula, String marca, String modelo, LocalDate fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, int nplazas, String tipo){
 		super(matricula, marca, modelo, fechaAlta, categoria, oficinaActual, carnetsValidos, autonomia);
 		setNplazas(nplazas);
 		setTipo(tipo);

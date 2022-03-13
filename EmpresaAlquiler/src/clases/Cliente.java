@@ -1,6 +1,6 @@
 package clases;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 public class Cliente extends Persona{
 	
@@ -43,13 +43,13 @@ public class Cliente extends Persona{
 	
 //	CONSTRUCTORES
 	
-	public Cliente(String dNI, String nombre, String ap1, String ap2, GregorianCalendar fechaNac, CarnetConducir carnet, boolean tieneTarjeta, String nTarjeta) {
+	public Cliente(String dNI, String nombre, String ap1, String ap2, LocalDate fechaNac, CarnetConducir carnet, boolean tieneTarjeta, String nTarjeta) {
 		super(dNI, nombre, ap1, ap2, fechaNac);
 		setCarnet(carnet);
 		setTieneTarjeta(tieneTarjeta);
 		setNtarjeta(nTarjeta);
 	}
-	public Cliente(String dNI, String nombre, String ap1, String ap2, GregorianCalendar fechaNac, CarnetConducir carnet, boolean tieneTarjeta) {
+	public Cliente(String dNI, String nombre, String ap1, String ap2, LocalDate fechaNac, CarnetConducir carnet, boolean tieneTarjeta) {
 		super(dNI, nombre, ap1, ap2, fechaNac);
 		setCarnet(carnet);
 		setTieneTarjeta(tieneTarjeta);
@@ -70,9 +70,9 @@ public class Cliente extends Persona{
 	@Override
 	public String toString () {
 		if (TieneTarjeta) {
-			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". Nº Tarjeta: " + Ntarjeta;
+			return getNombre() + ", " + getAp1() + " " + getAp2() + ", " + getEdad() + " años " + getFechaNac() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". Nº Tarjeta: " + Ntarjeta;
 		}else {
-			return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". No tiene tarjeta de cliente.";
+			return getNombre() + ", " + getAp1() + " " + getAp2() + ", " + getEdad() + " años " + getFechaNac() + " | " + getDNI() + ", Carnet: " + Carnet.getCodigo() + ". No tiene tarjeta de cliente.";
 		}
 	}
 	

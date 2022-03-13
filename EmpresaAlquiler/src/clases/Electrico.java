@@ -1,7 +1,7 @@
 package clases;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public abstract class Electrico extends Vehiculo {
 
@@ -31,12 +31,12 @@ public abstract class Electrico extends Vehiculo {
 	
 //	CONSTRUCTORES
 	
-	public Electrico(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, double tiempoRecarga) {
+	public Electrico(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double autonomia, double tiempoRecarga) {
 		super(matricula, marca, modelo, color, fechaAlta, kms, categoria, oficinaActual, carnetsValidos);
 		setAutonomia(autonomia);
 		setTiempoRecarga(tiempoRecarga);
 	}
-	public Electrico(String matricula, String marca, String modelo, GregorianCalendar fechaAlta, Categoria categoria, Oficina oficinaActual ,ArrayList<CarnetConducir> carnetsValidos, double autonomia) {
+	public Electrico(String matricula, String marca, String modelo, LocalDate fechaAlta, Categoria categoria, Oficina oficinaActual ,ArrayList<CarnetConducir> carnetsValidos, double autonomia) {
 		super(matricula, marca, modelo, fechaAlta, categoria, oficinaActual, carnetsValidos);
 		setAutonomia(autonomia);
 	}

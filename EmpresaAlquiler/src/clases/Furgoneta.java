@@ -1,7 +1,7 @@
 package clases;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class Furgoneta extends Combustion {
 
@@ -26,11 +26,11 @@ public class Furgoneta extends Combustion {
 	
 //	CONSTUCTORES
 	
-	public Furgoneta(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, String nivelEmisiones, double capacidadCarga) {
+	public Furgoneta(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, String nivelEmisiones, double capacidadCarga) {
 		super(matricula, marca, modelo, color, fechaAlta, kms, categoria, oficinaActual, carnetsValidos, consumo, potencia, nivelEmisiones);
 		setCapacidadCarga(capacidadCarga);
 	}
-	public Furgoneta(String matricula, String marca, String modelo, GregorianCalendar fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, double capacidadCarga) {
+	public Furgoneta(String matricula, String marca, String modelo, LocalDate fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, double capacidadCarga) {
 		super(matricula, marca, modelo, fechaAlta, categoria, oficinaActual, carnetsValidos, consumo, potencia);
 		setCapacidadCarga(capacidadCarga);
 	}

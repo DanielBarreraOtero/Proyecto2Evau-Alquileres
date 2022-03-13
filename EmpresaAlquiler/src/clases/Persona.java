@@ -1,7 +1,8 @@
 package clases;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.Period;
 
 import excepciones.DniInvalidoExcepcion;
 import metodos.Metodos;
@@ -18,7 +19,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	private String Nombre;
 	private String Ap1;
 	private String Ap2;
-	private GregorianCalendar FechaNac;
+	private LocalDate FechaNac;
 
 	//		GETTERS & SETTERS
 
@@ -53,14 +54,14 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	public void setAp2(String ap2) {
 		Ap2 = ap2;
 	}
-	public GregorianCalendar getFechaNac() {
-		//			creamos objetos aparte para que no haya tampering
-		GregorianCalendar fech = new GregorianCalendar(FechaNac.YEAR, FechaNac.MONTH, FechaNac.DAY_OF_MONTH);
+	public LocalDate getFechaNac() {
+//		creamos objetos aparte para que no haya tampering
+		LocalDate fech = FechaNac;
 		return fech;
 	}
-	private void setFechaNac(GregorianCalendar fechaNac) {
-		GregorianCalendar fech = new GregorianCalendar(fechaNac.YEAR, fechaNac.MONTH, fechaNac.DAY_OF_MONTH);
-		//			creamos objetos aparte para que no haya tampering
+	private void setFechaNac(LocalDate fechaNac) {
+//		creamos objetos aparte para que no haya tampering
+		LocalDate fech = fechaNac;
 		FechaNac = fech;
 	}
 
@@ -72,9 +73,9 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * @param String - nombre
 	 * @param String - ap1
 	 * @param String - ap2
-	 * @param GregorianCalendar - fechaNac
+	 * @param LocalDate - fechaNac
 	 */
-	public Persona(String dNI, String nombre, String ap1, String ap2, GregorianCalendar fechaNac) {
+	public Persona(String dNI, String nombre, String ap1, String ap2, LocalDate fechaNac) {
 		setDNI(dNI);
 		setNombre(nombre);
 		setAp1(ap1);
@@ -88,7 +89,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 	 * @param ap1
 	 * @param fechaNac
 	 */
-	public Persona(String dNI, String nombre, String ap1, GregorianCalendar fechaNac) {
+	public Persona(String dNI, String nombre, String ap1, LocalDate fechaNac) {
 		setDNI(dNI);
 		setNombre(nombre);
 		setAp1(ap1);
@@ -145,20 +146,13 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 		return Ap1 + " " + Ap2 + ", " + Nombre;
 	}
 	public boolean esCumpleaños() {
-		GregorianCalendar hoy = (GregorianCalendar) GregorianCalendar.getInstance();
-		boolean esCumpleaños = (FechaNac.MONTH == hoy.MONTH && FechaNac.DAY_OF_MONTH == hoy.DAY_OF_MONTH);
+		LocalDate hoy = LocalDate.now();
+		boolean esCumpleaños = (FechaNac.getMonth().equals(hoy.getMonth()) && FechaNac.getDayOfMonth() == hoy.getDayOfMonth());
 		return esCumpleaños;
 	}
 	public int getEdad() {
-		GregorianCalendar hoy = (GregorianCalendar) GregorianCalendar.getInstance();
-		int edad = hoy.YEAR - FechaNac.YEAR;/*Calculamos la edad si ya hubiera sido su cumple*/
-
-		//			Si todavia no ha sido su cumple, le restamos un año
-		if (hoy.MONTH < FechaNac.MONTH || (hoy.MONTH == FechaNac.MONTH && hoy.DAY_OF_MONTH < FechaNac.DAY_OF_MONTH)) {
-			edad =- 1;
-		}
-
-		return edad;
+		LocalDate hoy = LocalDate.now();
+		return Period.between(FechaNac, hoy).getYears();
 	}
 
 

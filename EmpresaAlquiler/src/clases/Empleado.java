@@ -1,6 +1,6 @@
 package clases;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 public class Empleado extends Persona{
 
@@ -10,15 +10,15 @@ public class Empleado extends Persona{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GregorianCalendar FechaAlta;
+	private LocalDate FechaAlta;
 	private Oficina OficinaActual;
 	
 // GETTERS Y SETTERS
 	
-	public GregorianCalendar getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return FechaAlta;
 	}
-	private void setFechaAlta(GregorianCalendar fechaAlta) {
+	private void setFechaAlta(LocalDate fechaAlta) {
 		FechaAlta = fechaAlta;
 	}
 	public Oficina getOficinaActual() {
@@ -41,7 +41,7 @@ public class Empleado extends Persona{
 	 * @param fechaalta
 	 * @param oficinaactual
 	 */
-	public Empleado(String dNI, String nombre, String ap1, String ap2, GregorianCalendar fechaNac, GregorianCalendar fechaalta, Oficina oficinaactual) {
+	public Empleado(String dNI, String nombre, String ap1, String ap2, LocalDate fechaNac, LocalDate fechaalta, Oficina oficinaactual) {
 		super(dNI, nombre, ap1, ap2, fechaNac);
 		setFechaAlta(fechaalta);
 		setOficinaActual(oficinaactual);
@@ -55,7 +55,7 @@ public class Empleado extends Persona{
 	 * @param fechaalta
 	 * @param oficinaactual
 	 */
-	public Empleado(String dNI, String nombre, String ap1, GregorianCalendar fechaNac, GregorianCalendar fechaalta, Oficina oficinaactual) {
+	public Empleado(String dNI, String nombre, String ap1, LocalDate fechaNac, LocalDate fechaalta, Oficina oficinaactual) {
 		super(dNI, nombre, ap1, fechaNac);
 		setFechaAlta(fechaalta);
 		setOficinaActual(oficinaactual);
@@ -92,11 +92,7 @@ public class Empleado extends Persona{
 	
 	@Override
 	public String toString() {
-		@SuppressWarnings("static-access")
-		String FN = getFechaNac().DAY_OF_MONTH + "/" + getFechaNac().MONTH + "/" + getFechaNac().YEAR;
-		@SuppressWarnings("static-access")
-		String FA = FechaAlta.DAY_OF_MONTH + "/" + getFechaAlta().MONTH + "/" + FechaAlta.YEAR;
-		return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + getEdad() + " años " + FN + ", Oficina:" + getOficinaActual() + " | Fecha alta:" + FA;
+		return getNombre() + ", " + getAp1() + " " + getAp2() + " | " + getDNI() + ", " + getEdad() + " años " + getFechaNac() + ", Oficina:" + getOficinaActual() + " | Fecha alta:" + FechaAlta;
 	}
 	
 	

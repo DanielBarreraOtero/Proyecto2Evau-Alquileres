@@ -1,8 +1,8 @@
 package metodosUI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
@@ -452,7 +452,7 @@ public class InterfacesDeUsuario {
 				año = lector.nextInt();
 				lector.nextLine();
 
-				GregorianCalendar FecNac = new GregorianCalendar(año, mes, dia);
+				LocalDate FecNac = LocalDate.of(año, mes, dia);
 
 				System.out.println("");
 
@@ -549,7 +549,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			GregorianCalendar FecNac = new GregorianCalendar(año, mes, dia);
+			LocalDate FecNac = LocalDate.of(año, mes, dia);
 
 			do {
 				System.out.print("¿Tiene tarjeta de Cliente?(S/N): ");
@@ -754,7 +754,7 @@ public class InterfacesDeUsuario {
 			System.out.print("Año: ");
 			año = lector.nextInt();
 
-			GregorianCalendar FecNac = new GregorianCalendar(año, mes, dia);
+			LocalDate FecNac = LocalDate.of(año, mes, dia);
 
 			System.out.println("");
 			System.out.println("Fecha de Alta.");
@@ -768,7 +768,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			GregorianCalendar FecAlta = new GregorianCalendar(año, mes, dia);
+			LocalDate FecAlta = LocalDate.of(año, mes, dia);
 			System.out.println("");
 
 			MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
@@ -847,7 +847,7 @@ public class InterfacesDeUsuario {
 			System.out.print("Año: ");
 			año = lector.nextInt();
 
-			GregorianCalendar FecNac = new GregorianCalendar(año, mes, dia);
+			LocalDate FecNac = LocalDate.of(año, mes, dia);
 
 			System.out.println("");
 			System.out.println("Fecha de Alta.");
@@ -861,7 +861,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			GregorianCalendar FecAlta = new GregorianCalendar(año, mes, dia);
+			LocalDate FecAlta = LocalDate.of(año, mes, dia);
 			System.out.println("");
 
 			MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
@@ -1170,7 +1170,7 @@ public class InterfacesDeUsuario {
 					año = lector.nextInt();
 					lector.nextLine();
 
-					GregorianCalendar FecAlta = new GregorianCalendar(año, mes, dia);
+					LocalDate FecAlta = LocalDate.of(año, mes, dia);
 
 					Carnets = emp.getCarnets().keySet();
 
@@ -1513,7 +1513,7 @@ public class InterfacesDeUsuario {
 	 * @param carnetsValidos
 	 * @return CocheC
 	 */
-	public static CocheC CreaCocheC(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public static CocheC CreaCocheC(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
 		String tipo, nivelEmisiones;
@@ -1555,7 +1555,7 @@ public class InterfacesDeUsuario {
 	 * @param carnetsValidos
 	 * @return CocheE
 	 */
-	public static CocheE CreaCocheE(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public static CocheE CreaCocheE(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
 		String tipo;
@@ -1591,7 +1591,7 @@ public class InterfacesDeUsuario {
 	 * @param carnetsValidos
 	 * @return Moto
 	 */
-	public static Moto CreaMoto(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public static Moto CreaMoto(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
 		double autonomia, tiempoRecarga, cilindrada;
@@ -1622,7 +1622,7 @@ public class InterfacesDeUsuario {
 	 * @param carnetsValidos
 	 * @return Furgoneta
 	 */
-	public static Furgoneta CreaFurgoneta(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public static Furgoneta CreaFurgoneta(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
 		String nivelEmisiones;
@@ -1708,7 +1708,7 @@ public class InterfacesDeUsuario {
 		Oficina OficinaOriginal, OficinaPrev;
 		int año, mes, dia;
 		boolean mismaOficina = false, menor25 = false;
-		GregorianCalendar FechaInicio, FechaFinPrev, FechaNac;
+		LocalDate FechaInicio, FechaFinPrev, FechaNac;
 		Set<String> Vehiculos;
 		
 		codigo = "" + (emp.getAlquileres().size() + 1);
@@ -1755,7 +1755,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			FechaInicio = new GregorianCalendar(año, mes, dia);
+			FechaInicio = LocalDate.of(año, mes, dia);
 			System.out.println();
 			
 			System.out.println("Fecha Fin Prevista.");
@@ -1769,7 +1769,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			FechaFinPrev = new GregorianCalendar(año, mes, dia);
+			FechaFinPrev = LocalDate.of(año, mes, dia);
 			System.out.println();
 			
 			System.out.println("Fecha z.");
@@ -1783,7 +1783,7 @@ public class InterfacesDeUsuario {
 			año = lector.nextInt();
 			lector.nextLine();
 
-			FechaNac = new GregorianCalendar(año, mes, dia);
+			FechaNac = LocalDate.of(año, mes, dia);
 			System.out.println();
 			
 			Vehiculos = emp.getVehiculos().keySet();

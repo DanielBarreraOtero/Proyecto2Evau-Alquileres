@@ -1,7 +1,7 @@
 package clases;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 public class Alquiler implements Comparable<Alquiler>, Serializable{
 
@@ -16,13 +16,13 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	private Empleado EmpleadoAlquiler; /* Empleado que gestiona el alquiler */
 	private Cliente Cliente; /* Que alquila */
 	private Oficina OficinaOriginal; /* En la que se encuentra el coche */
-	private GregorianCalendar FechaInicio; /* Cuando se realiza el alquiler */
-	private GregorianCalendar FechaFinPrev; /* La que se prevee que el cliente devolvera */
+	private LocalDate FechaInicio; /* Cuando se realiza el alquiler */
+	private LocalDate FechaFinPrev; /* La que se prevee que el cliente devolvera */
 	private double ImporteTotal; /* Importe total */
 	private double OficinaPrev; /* en la que se prevee que se devolvera */
 	private Oficina OficinaDevolucion; /* en la que se devuelve el vehiculo realmente*/
 	private double KmsRecorridos; /* se añaden al vehiculo */
-	private GregorianCalendar FechaFinReal; /* Fecha en la que realmente se ha devuelto el vehiculo */
+	private LocalDate FechaFinReal; /* Fecha en la que realmente se ha devuelto el vehiculo */
 	private Empleado EmpleadoDevolucion; /* Empleado que gestiona la devolucion */
 	private double ImporteFinal; /* Importe real en el caso de que se tenga que aplicar alguna amonestacion */
 	
@@ -58,16 +58,16 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	private void setOficinaOriginal(Oficina oficinaOriginal) {
 		OficinaOriginal = oficinaOriginal;
 	}
-	public GregorianCalendar getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return FechaInicio;
 	}
-	private void setFechaInicio(GregorianCalendar fechaInicio) {
+	private void setFechaInicio(LocalDate fechaInicio) {
 		FechaInicio = fechaInicio;
 	}
-	public GregorianCalendar getFechaFinPrev() {
+	public LocalDate getFechaFinPrev() {
 		return FechaFinPrev;
 	}
-	private void setFechaFinPrev(GregorianCalendar fechaFinPrev) {
+	private void setFechaFinPrev(LocalDate fechaFinPrev) {
 		FechaFinPrev = fechaFinPrev;
 	}
 	public double getImporteTotal() {
@@ -94,10 +94,10 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	public void setKmsRecorridos(double kmsRecorridos) {
 		KmsRecorridos = kmsRecorridos;
 	}
-	public GregorianCalendar getFechaFinReal() {
+	public LocalDate getFechaFinReal() {
 		return FechaFinReal;
 	}
-	public void setFechaFinReal(GregorianCalendar fechaFinReal) {
+	public void setFechaFinReal(LocalDate fechaFinReal) {
 		FechaFinReal = fechaFinReal;
 	}
 	public Empleado getEmpleadoDevolucion() {
@@ -133,7 +133,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	 * @param empleadoDevolucion
 	 * @param importeFinal
 	 */
-	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, GregorianCalendar fechaInicio, GregorianCalendar fechaFinPrev, double importeTotal, double oficinaPrev, Oficina oficinaDevolucion, double kmsRecorridos, GregorianCalendar fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
+	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, double oficinaPrev, Oficina oficinaDevolucion, double kmsRecorridos, LocalDate fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
 		setCodigo(codigo);
 		setVehiculo(vehiculo);
 		setEmpleadoAlquiler(empleadoAlquiler);
@@ -160,7 +160,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	 * @param importeTotal
 	 * @param oficinaPrev
 	 */
-	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, GregorianCalendar fechaInicio, GregorianCalendar fechaFinPrev, double importeTotal, double oficinaPrev) {
+	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, double oficinaPrev) {
 		setCodigo(codigo);
 		setVehiculo(vehiculo);
 		setEmpleadoAlquiler(empleadoAlquiler);
@@ -203,7 +203,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	 * @param empleadoDevolucion
 	 * @param importeFinal
 	 */
-	public void rellenarAlquiler(Oficina oficinaDevolucion, double kmsRecorridos, GregorianCalendar fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
+	public void rellenarAlquiler(Oficina oficinaDevolucion, double kmsRecorridos, LocalDate fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
 		setOficinaDevolucion(oficinaDevolucion);
 		setKmsRecorridos(kmsRecorridos);
 		setFechaFinReal(fechaFinReal);

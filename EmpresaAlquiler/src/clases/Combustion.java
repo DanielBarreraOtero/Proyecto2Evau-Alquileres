@@ -1,7 +1,7 @@
 package clases;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public abstract class Combustion extends Vehiculo {
 	
@@ -38,13 +38,13 @@ public abstract class Combustion extends Vehiculo {
 	
 //	CONSTRUCTORES
 	
-	public Combustion(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, String nivelEmisiones) {
+	public Combustion(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia, String nivelEmisiones) {
 		super(matricula, marca, modelo, color, fechaAlta, kms, categoria, oficinaActual, carnetsValidos);
 		setConsumo(consumo);
 		setPotencia(potencia);
 		setNivelEmisiones(nivelEmisiones);
 	}
-	public Combustion(String matricula, String marca, String modelo, GregorianCalendar fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia) {
+	public Combustion(String matricula, String marca, String modelo, LocalDate fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos, double consumo, double potencia) {
 		super(matricula, marca, modelo, fechaAlta, categoria, oficinaActual, carnetsValidos);
 		setConsumo(consumo);
 		setPotencia(potencia);

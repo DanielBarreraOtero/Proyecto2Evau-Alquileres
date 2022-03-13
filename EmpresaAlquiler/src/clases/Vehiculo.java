@@ -1,8 +1,8 @@
 package clases;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
@@ -16,7 +16,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	private String Marca;
 	private String Modelo;
 	private String Color;
-	private GregorianCalendar FechaAlta;
+	private LocalDate FechaAlta;
 	private double Kms;
 	private Categoria Categoria;
 	private Oficina OficinaActual;
@@ -48,10 +48,10 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	public void setColor(String color) {
 		Color = color;
 	}
-	public GregorianCalendar getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return FechaAlta;
 	}
-	private void setFechaAlta(GregorianCalendar fechaAlta) {
+	private void setFechaAlta(LocalDate fechaAlta) {
 		FechaAlta = fechaAlta;
 	}
 	public double getKms() {
@@ -81,7 +81,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	
 //	CONSTRUCTORES
 		
-	public Vehiculo(String matricula, String marca, String modelo, String color, GregorianCalendar fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public Vehiculo(String matricula, String marca, String modelo, String color, LocalDate fechaAlta, double kms, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		setMatricula(matricula);
 		setMarca(marca);
 		setModelo(modelo);
@@ -92,7 +92,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		setOficinaActual(oficinaActual);
 		setCarnetsValidos(carnetsValidos);
 	}
-	public Vehiculo(String matricula, String marca, String modelo, GregorianCalendar fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
+	public Vehiculo(String matricula, String marca, String modelo, LocalDate fechaAlta, Categoria categoria, Oficina oficinaActual, ArrayList<CarnetConducir> carnetsValidos) {
 		setMatricula(matricula);
 		setMarca(marca);
 		setModelo(modelo);
@@ -121,8 +121,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	
 	@Override
 	public String toString () {
-//		TODO REPASAR
-		return Matricula + ", " + Marca + ", " + Modelo + " " + Kms + "Kms | " + Categoria + " | Fecha Alta: " + FechaAlta.DAY_OF_MONTH+"/"+FechaAlta.MONTH+"/"+FechaAlta.YEAR + ". Oficina Altual :" + OficinaActual;
+		return Matricula + ", " + Marca + ", " + Modelo + " " + Kms + "Kms | " + Categoria + " | Fecha Alta: " + FechaAlta + ". Oficina Altual :" + OficinaActual;
 	}
 	@Override
 	public int compareTo(Vehiculo o) {
