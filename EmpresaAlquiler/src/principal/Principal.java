@@ -64,15 +64,15 @@ public class Principal {
 				break;
 			}
 			case "D": {
-//				TODO
+				InterfacesDeUsuario.GestionVehiculos(emp);
 				break;
 			}
 			case "E": {
-//				TODO
+				InterfacesDeUsuario.GestionAlquileres(emp);
 				break;
 			}
 			case "F": {
-//				TODO
+				InterfacesDeUsuario.GestionCategorias(emp);
 				break;
 			}
 			case "G": {

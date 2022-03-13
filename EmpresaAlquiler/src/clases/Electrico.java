@@ -43,6 +43,8 @@ public abstract class Electrico extends Vehiculo {
 	
 //	METODOS
 	
-//	TODO
-	
+	@Override
+		public String toString() {
+			return super.toString() + "";
+		}
 }

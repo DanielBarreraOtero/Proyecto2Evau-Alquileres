@@ -53,6 +53,12 @@ public class Categoria implements Comparable<Categoria>, Serializable{
 		setRecargo(recargo);
 	}
 	
+	public Categoria(String codigo, double recargo) {
+		setCodigo(codigo);
+		setDescripcion("");
+		setRecargo(recargo);
+	}
+	
 //	METODOS
 	
 	@Override

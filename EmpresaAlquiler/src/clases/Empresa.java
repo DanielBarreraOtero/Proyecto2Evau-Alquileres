@@ -159,12 +159,11 @@ public class Empresa implements Serializable{
 	
 //	METODOS
 	
-//	OFICINAS
 	
 	
 //	------METODOS------
 	
-//	Oficinas
+//	OFICINAS
 	
 	/**Añade la oficina o al TreeMap de Oficinas.
 	 * 
@@ -180,9 +179,6 @@ public class Empresa implements Serializable{
 	public void BorrarOficina(String codigo) {
 		Oficinas.remove(codigo);
 	}
-	
-//	Personas
-	
 	
 //	CLIENTES
 	
@@ -200,9 +196,6 @@ public class Empresa implements Serializable{
 	public void BorrarCliente(String nombreCompleto) {
 		Clientes.remove(nombreCompleto);
 	}
-	
-//	Vehiculos
-	
 	
 //	EMPLEADOS
 	
@@ -238,7 +231,7 @@ public class Empresa implements Serializable{
 		Vehiculos.remove(matricula);
 	}
 	
-//	Vehiculos Alquilados
+//	ALQUILAR VEHICULOS
 	
 	/**Añade un vehiculo al TreeMap de VehiculosAlquilados y lo elimina del de Vehiculos.
 	 * 
@@ -292,8 +285,6 @@ public class Empresa implements Serializable{
 	public void BorrarAlquiler(String codigo) {
 		Alquileres.remove(codigo);
 	}
-	
-//	Categorias
 	
 	
 //	CATEGORIAS

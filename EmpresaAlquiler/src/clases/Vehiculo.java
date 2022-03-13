@@ -122,7 +122,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	@Override
 	public String toString () {
 //		TODO REPASAR
-		return Categoria + ", " +   Matricula + ", " + Marca + " " + Modelo + " " + Kms + " | " + FechaAlta + ", " + OficinaActual;
+		return Matricula + ", " + Marca + ", " + Modelo + " " + Kms + "Kms | " + Categoria + " | Fecha Alta: " + FechaAlta.DAY_OF_MONTH+"/"+FechaAlta.MONTH+"/"+FechaAlta.YEAR + ". Oficina Altual :" + OficinaActual;
 	}
 	@Override
 	public int compareTo(Vehiculo o) {
