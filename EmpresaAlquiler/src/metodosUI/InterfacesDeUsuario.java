@@ -1650,11 +1650,217 @@ public class InterfacesDeUsuario {
 	
 	
 	//	--- GESTION DE ALQUILERES ---	
-	//	TODO
 	
+	/**Pide al usuario una eleccion y llama a otros metodos que gestionan Alquileres dependiendo de esta.
+	 * 
+	 * @param emp
+	 */
 	public static void GestionAlquileres(Empresa emp) {
+		String[] o = {"1 - CREAR NUEVO ALQUILER", "2 - COMPLETAR ALQUILER", "3 - MODIFICAR ALQUILER", "4 - ELIMINAR ALQUILER", "5 - LISTADOS DE ALQUILER", "6 - BUSCAR ALQUILER", "7 - VOLVER AL MENÚ"};
+		String eleccion;
+
+		do {
+			eleccion = MenuOpciones("GESTIÓN DE ALQUILERES", "-", o, "1-2-3-4-5-6-7-8", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
+
+			switch (eleccion) {
+			case "1": {
+				Metodos.Titular(Metodos.RodeaCadena("NUEVO ALQUILER", "-", 5), "-");
+				CrearAlquiler(emp);
+				break;
+			}
+			case "2": {
+				Metodos.Titular(Metodos.RodeaCadena("COMPLETAR ALQUILER", "-", 5), "-");
+				CompletarAlquiler(emp);
+				break;
+			}
+			case "3": {
+				Metodos.Titular(Metodos.RodeaCadena("MODIFICAR ALQUILER", "-", 5), "-");
+				ModificarAlquiler(emp);
+				break;
+			}
+			case "4": {
+				Metodos.Titular(Metodos.RodeaCadena("ELIMINAR ALQUILER", "-", 5), "-");
+				EliminarAlquiler(emp);
+				break;
+			}
+			case "5": {
+				Metodos.Titular(Metodos.RodeaCadena("LISTADOS ALQUILER", "-", 5), "-");
+				ListadosAlquiler(emp);
+				break;
+			}
+			case "6": {
+				Metodos.Titular(Metodos.RodeaCadena("BUSCAR ALQUILER", "-", 5), "-");
+				BuscarAlquiler(emp);
+				break;
+			}
+			}
+
+		} while (!eleccion.equals("7"));
+	}
+	/**TODO Pide al usuario datos y después añade el nuevo Alquiler al TreeMap.
+	 * 
+	 * @param emp
+	 */
+	public static void CrearAlquiler(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String codigo, ofi;
+		Oficina OficinaOriginal, OficinaPrev;
+		int año, mes, dia;
+		boolean mismaOficina = false, menor25 = false;
+		GregorianCalendar FechaInicio, FechaFinPrev, FechaNac;
+		Set<String> Vehiculos;
+		
+		codigo = "" + (emp.getAlquileres().size() + 1);
+		
+		System.out.println("Oficinas:");
+		MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
+		System.out.println("");
+
+		do {
+			System.out.println("Elija una oficina de inicio: ");
+			ofi = lector.nextLine();
+
+			if(!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR")) {
+				System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
+			}
+			System.out.println("");
+		} while (!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR"));
+
+		if (!ofi.equalsIgnoreCase("SALIR")) {
+			OficinaOriginal = emp.getOficinas().get(ofi);
+			
+			do {
+				System.out.println("Elija una oficina de devolución: ");
+				ofi = lector.nextLine();
+
+				if(!emp.getOficinas().containsKey(ofi)) {
+					System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
+				}
+				System.out.println("");
+			} while (!emp.getOficinas().containsKey(ofi));
+			
+			OficinaPrev = emp.getOficinas().get(ofi);
+			
+			mismaOficina = OficinaOriginal.equals(OficinaPrev);
+			
+			System.out.println("Fecha Inicio.");
+			System.out.print("Día: ");
+			dia = lector.nextInt();
+
+			System.out.print("Mes: ");
+			mes = lector.nextInt();
+
+			System.out.print("Año: ");
+			año = lector.nextInt();
+			lector.nextLine();
+
+			FechaInicio = new GregorianCalendar(año, mes, dia);
+			System.out.println();
+			
+			System.out.println("Fecha Fin Prevista.");
+			System.out.print("Día: ");
+			dia = lector.nextInt();
+
+			System.out.print("Mes: ");
+			mes = lector.nextInt();
+
+			System.out.print("Año: ");
+			año = lector.nextInt();
+			lector.nextLine();
+
+			FechaFinPrev = new GregorianCalendar(año, mes, dia);
+			System.out.println();
+			
+			System.out.println("Fecha z.");
+			System.out.print("Día: ");
+			dia = lector.nextInt();
+
+			System.out.print("Mes: ");
+			mes = lector.nextInt();
+
+			System.out.print("Año: ");
+			año = lector.nextInt();
+			lector.nextLine();
+
+			FechaNac = new GregorianCalendar(año, mes, dia);
+			System.out.println();
+			
+			Vehiculos = emp.getVehiculos().keySet();
+
+			for (String i: Vehiculos) {
+				if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal)) {
+					System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(dia));
+				}
+			}
+			System.out.println("");
+			
+			
+			
+		}
+		
+		
+		
+		
 		
 	}
+	/**TODO Pide al usuario datos y después completa el Alquiler.
+	 * 
+	 * @param emp
+	 */
+	public static void CompletarAlquiler(Empresa emp) {
+		
+	}
+	/**TODO Le pide al usuario la key de un Alquiler y crea un nuevo Alquiler pero colocando la misma key.
+	 * 
+	 * @param emp
+	 */
+	public static void ModificarAlquiler(Empresa emp) {
+		
+	}
+	/**TODO Le pide al usuario la key de un Alquiler y lo borra.
+	 * 
+	 * @param emp
+	 */
+	public static void EliminarAlquiler(Empresa emp) {
+		
+	}
+	/**TODO Pide al usuario la key de un Alquiler y muestra los datos de este.
+	 * 
+	 * @param emp
+	 */
+	public static void BuscarAlquiler(Empresa emp) {
+		
+	}
+	/**TODO Muestra el menu de listados de Alquiler al usuario y llama al metodo del listado que elija.
+	 * 
+	 * @param emp
+	 */
+	public static void ListadosAlquiler(Empresa emp) {
+		String[] l = {"1 - NOMBRE", "2 - FECHA DE ALTA", "3 - OFICINA", "4 - ATRÁS"};
+		String eleccion;
+
+		do {
+			eleccion = MenuOpciones("ORDENAR POR:", "-", l, "1-2-3-4", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
+
+			switch (eleccion) {
+			case "1": {
+				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()));
+				break;
+			}
+			case "2": {
+				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()), new EmpleadoFechaAlta());
+				break;
+			}
+			case "3": {
+				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()), new EmpleadoOficina());
+				break;
+			}
+			}
+		} while (!eleccion.equals("4"));
+	}
+	
+	
 
 	//	--- GESTION DE CATEGORIAS ---
 

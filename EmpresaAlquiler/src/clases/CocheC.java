@@ -79,8 +79,10 @@ public class CocheC extends Combustion {
 	@Override
 	/**Para calcular el primer importe que se le enseña al usuario en el listado.
 	 * Si la oficina en la que se encuetra el coche es un aeropuerto se le aplica otro 10%.
+	 * Si la oficina de devolucion es diferente a la actual se le aplica otro 10%.
+	 * Si el cliente es menor de 25 años se le aplica otro 5%.
 	 */
-	public double CalcularImporte(int dias) {
+	public double CalcularImporte(int dias, boolean mismaOficina, Oficina oficinaDev, boolean menor25) {
 		double aeropuerto = 0;
 		if (getOficinaActual().getAeropuerto()) {
 			aeropuerto = 0.10 * PrecioBase;
