@@ -52,6 +52,5 @@ public abstract class Combustion extends Vehiculo {
 	
 //	METODOS
 	
-//	TODO
 		
 }

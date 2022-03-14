@@ -19,7 +19,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	private LocalDate FechaInicio; /* Cuando se realiza el alquiler */
 	private LocalDate FechaFinPrev; /* La que se prevee que el cliente devolvera */
 	private double ImporteTotal; /* Importe total */
-	private double OficinaPrev; /* en la que se prevee que se devolvera */
+	private Oficina OficinaPrev; /* en la que se prevee que se devolvera */
 	private Oficina OficinaDevolucion; /* en la que se devuelve el vehiculo realmente*/
 	private double KmsRecorridos; /* se añaden al vehiculo */
 	private LocalDate FechaFinReal; /* Fecha en la que realmente se ha devuelto el vehiculo */
@@ -76,10 +76,10 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	private void setImporteTotal(double importeTotal) {
 		ImporteTotal = importeTotal;
 	}
-	public double getOficinaPrev() {
+	public Oficina getOficinaPrev() {
 		return OficinaPrev;
 	}
-	private void setOficinaPrev(double oficinaPrev) {
+	private void setOficinaPrev(Oficina oficinaPrev) {
 		OficinaPrev = oficinaPrev;
 	}
 	public Oficina getOficinaDevolucion() {
@@ -133,7 +133,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	 * @param empleadoDevolucion
 	 * @param importeFinal
 	 */
-	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, double oficinaPrev, Oficina oficinaDevolucion, double kmsRecorridos, LocalDate fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
+	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, Oficina oficinaPrev, Oficina oficinaDevolucion, double kmsRecorridos, LocalDate fechaFinReal, Empleado empleadoDevolucion, double importeFinal) {
 		setCodigo(codigo);
 		setVehiculo(vehiculo);
 		setEmpleadoAlquiler(empleadoAlquiler);
@@ -160,7 +160,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	 * @param importeTotal
 	 * @param oficinaPrev
 	 */
-	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, double oficinaPrev) {
+	public Alquiler(String codigo, Vehiculo vehiculo, Empleado empleadoAlquiler, Cliente cliente, Oficina oficinaOriginal, LocalDate fechaInicio, LocalDate fechaFinPrev, double importeTotal, Oficina oficinaPrev) {
 		setCodigo(codigo);
 		setVehiculo(vehiculo);
 		setEmpleadoAlquiler(empleadoAlquiler);
@@ -168,7 +168,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 		setOficinaOriginal(oficinaOriginal);
 		setFechaInicio(fechaInicio);
 		setFechaFinPrev(fechaFinPrev);
-		setImporteTotal(importeTotal); /*TODO HACER QUE SE AUTOCOMPLETE?*/
+		setImporteTotal(importeTotal);
 		setOficinaPrev(oficinaPrev);
 	}
 	/**Constructor copia
@@ -194,6 +194,14 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 	
 //	METODOS
 	
+	@Override
+		public String toString() {
+			if (OficinaDevolucion == null) {
+				return "Nº"+Codigo+", Cliente: "+Cliente+"\n"+"Vehículo: "+Vehiculo+"\n"+"Por empleado: "+EmpleadoAlquiler+"\n"+"Previsto desde el día: "+FechaInicio+" hasta "+FechaFinPrev+"\n"+"Con devolcion prevista en: "+OficinaPrev+"\n"+"Y precio previsto de: "+ImporteTotal+" €.";
+			} else {
+				return "Nº"+Codigo+", Cliente: "+Cliente+"\n"+"Vehículo: "+Vehiculo+"\n"+"Por empleado: "+EmpleadoAlquiler+"\n"+"Previsto desde el día: "+FechaInicio+" hasta "+FechaFinPrev+"\n"+"Con devolcion prevista en: "+OficinaPrev+"\n"+"Y precio previsto de: "+ImporteTotal+"\n"+"Con devolución el día: "+FechaFinReal+"\n"+"En oficina: "+OficinaDevolucion+"\n"+"Por empleado: "+EmpleadoDevolucion+"\n"+"Con un total de kilómetros de : "+KmsRecorridos+" y un precio real de: "+ImporteFinal+" €.";
+			}
+		}
 	
 	/**Rellena el resto de datos de un alquiler ya empezado para finalizarlo.
 	 * 
@@ -208,7 +216,7 @@ public class Alquiler implements Comparable<Alquiler>, Serializable{
 		setKmsRecorridos(kmsRecorridos);
 		setFechaFinReal(fechaFinReal);
 		setEmpleadoDevolucion(empleadoDevolucion);
-		setImporteFinal(importeFinal); /*TODO HACER QUE SE AUTOCOMPLETE?*/
+		setImporteFinal(importeFinal);
 	}
 	@Override
 	public int compareTo(Alquiler o) {

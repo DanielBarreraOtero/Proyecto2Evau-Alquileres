@@ -1,5 +1,6 @@
 package metodosUI;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,7 +19,6 @@ import clases.Empresa;
 import clases.Furgoneta;
 import clases.Moto;
 import clases.Oficina;
-import clases.Persona;
 import clases.Vehiculo;
 import metodos.Metodos;
 import miscomparadores.CategoriaRecargo;
@@ -412,7 +412,7 @@ public class InterfacesDeUsuario {
 		cliExiste = emp.getClientes().containsKey(nomcompl);
 
 		if (!cliExiste) {
-//			TODO CONTROLAR QUE EL DNI NO EXISTA
+			
 			do {
 				System.out.print("DNI: ");
 				dNI = lector.nextLine();
@@ -474,6 +474,84 @@ public class InterfacesDeUsuario {
 					Ntarjeta = lector.nextLine();
 
 					o = new Cliente(dNI, nombre, ap1, ap2, FecNac, emp.getCarnets().get(carnet), TieneTarjeta, Ntarjeta);
+				}
+				emp.AñadirCliente(o);
+			} else {
+				System.out.println("Es necesario un carnet de conducir, el cliente no se ha creado.");
+			}
+		} else {
+			System.out.println("El cliente " + nomcompl + " ya existe.");
+
+		}
+		System.out.println("");
+	}
+	/**Sobrecarga que crea el cliente sin pedir el nombre compelto
+	 * 
+	 * @param emp
+	 * @param nombre
+	 * @param ap1
+	 * @param ap2
+	 */
+	public static void CrearCliente(Empresa emp, String nombre, String ap1, String ap2, LocalDate fechaNac) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String dNI, nomcompl, carnet, Ntarjeta, TJ;
+		Set<String> Carnets;
+		Cliente o;
+		boolean cliExiste, TieneTarjeta = false;
+		
+		nomcompl = ap1 + " " + ap2 + ", " + nombre; 
+
+		cliExiste = emp.getClientes().containsKey(nomcompl);
+
+		if (!cliExiste) {
+			do {
+				System.out.print("DNI: ");
+				dNI = lector.nextLine();
+
+				if (!Metodos.ValidarDNI(dNI)) {
+					System.out.println("DNI inválido.");
+				}
+			} while(!Metodos.ValidarDNI(dNI));
+
+			Carnets = emp.getCarnets().keySet();
+
+			for (String i: Carnets) {
+				System.out.print(i + " / ");
+			}
+			System.out.println("");
+
+			do {
+				System.out.println("Elija un carnet de conducir: ");
+				carnet = lector.nextLine();
+
+				if(!emp.getCarnets().containsKey(carnet) && !carnet.equalsIgnoreCase("SALIR")) {
+					System.out.println("Ese carnet no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el cliente).");
+				}
+
+			} while (!emp.getCarnets().containsKey(carnet) && !carnet.equalsIgnoreCase("SALIR"));
+
+			if(!carnet.equalsIgnoreCase("SALIR")) {
+				System.out.println("");
+
+				do {
+					System.out.print("¿Tiene tarjeta de Cliente?(S/N): ");
+					TJ = lector.nextLine();
+
+					if (!TJ.equalsIgnoreCase("S") && !TJ.equalsIgnoreCase("N")) {
+						System.out.println("Carácter ínvalido.");
+					} else if(TJ.equalsIgnoreCase("S")) {
+						TieneTarjeta = true;
+					}
+				} while(!TJ.equalsIgnoreCase("S") && !TJ.equalsIgnoreCase("N"));
+
+				if(!TieneTarjeta) {
+					o = new Cliente(dNI, nombre, ap1, ap2, fechaNac, emp.getCarnets().get(carnet), TieneTarjeta);
+				} else {
+					System.out.print("Número de Tarjeta: ");
+					Ntarjeta = lector.nextLine();
+
+					o = new Cliente(dNI, nombre, ap1, ap2, fechaNac, emp.getCarnets().get(carnet), TieneTarjeta, Ntarjeta);
 				}
 				emp.AñadirCliente(o);
 			} else {
@@ -654,7 +732,6 @@ public class InterfacesDeUsuario {
 		} while(!emp.getClientes().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
 
 		if (clilExiste) {
-//			TODO CHECKEAR EL TOSTRING FECHAS MAL
 			System.out.println(emp.getClientes().get(nom));
 		}
 		System.out.println();
@@ -664,7 +741,6 @@ public class InterfacesDeUsuario {
 	
 	//	--- GESTION DE EMPLEADOS ---
 	
-//	TODO PONERLE TITULOS A GESTION
 	/**Pide al usuario una eleccion y llama a otros metodos que gestionan Empleados dependiendo de esta.
 	 * 
 	 * @param emp
@@ -683,22 +759,27 @@ public class InterfacesDeUsuario {
 				break;
 			}
 			case "2": {
+				Metodos.Titular(Metodos.RodeaCadena("MODIFICAR EMPLEADO", "-", 5), "-");
 				ModificaEmpleados(emp);
 				break;
 			}
 			case "3": {
+				Metodos.Titular(Metodos.RodeaCadena("ELIMINAR EMPLEADO", "-", 5), "-");
 				EliminaEmpleados(emp);
 				break;
 			}
 			case "4": {
+				Metodos.Titular(Metodos.RodeaCadena("LISTADOS DE EMPLEADO", "-", 5), "-");
 				ListadosEmpleados(emp);
 				break;
 			}
 			case "5": {
+				Metodos.Titular(Metodos.RodeaCadena("BUSCAR EMPLEADO", "-", 5), "-");
 				BuscarEmpleados(emp);
 				break;
 			}
 			case "6": {
+				Metodos.Titular(Metodos.RodeaCadena("TRANSALADAR EMPLEADO", "-", 5), "-");
 				TransladarEmpleado(emp);
 				break;
 			}
@@ -733,7 +814,6 @@ public class InterfacesDeUsuario {
 
 		if (!emplExiste) {
 			
-//			TODO CONTROLAR QUE EL DNI NO EXISTA
 			do {
 				System.out.print("DNI: ");
 				dNI = lector.nextLine();
@@ -964,7 +1044,6 @@ public class InterfacesDeUsuario {
 		} while(!emp.getEmpleados().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
 
 		if (emplExiste) {
-//			TODO CHECKEAR EL TOSTRING DE EMPLEADO, FECHAS MAL
 			System.out.println(emp.getEmpleados().get(nom));
 		}
 		System.out.println();
@@ -1238,7 +1317,7 @@ public class InterfacesDeUsuario {
 		}
 		System.out.println("");
 	}
-	/**TODO Le pide al usuario la key de un Vehiculo y llama al metodo de crear un nuevo Vehiculo pero colocando la misma key.
+	/**Le pide al usuario la key de un Vehiculo y llama al metodo de crear un nuevo Vehiculo pero colocando la misma key.
 	 * 
 	 * @param emp
 	 */
@@ -1324,7 +1403,6 @@ public class InterfacesDeUsuario {
 		} while(!emp.getVehiculos().containsKey(matr) && !emp.getVehiculosAlquilados().containsKey(matr) && !matr.equalsIgnoreCase("SALIR"));
 
 		if (vehiExiste) {
-//			TODO CHECKEAR EL TOSTRING DE VEHICULO, FECHAS MAL
 			if (emp.getVehiculos().containsKey(matr)) {
 				System.out.println(emp.getVehiculos().get(matr));
 			} else {
@@ -1684,8 +1762,8 @@ public class InterfacesDeUsuario {
 				break;
 			}
 			case "5": {
-				Metodos.Titular(Metodos.RodeaCadena("LISTADOS ALQUILER", "-", 5), "-");
-				ListadosAlquiler(emp);
+				Metodos.Titular(Metodos.RodeaCadena("LISTADO ALQUILERES", "-", 5), "-");
+				ListadoAlquiler(emp);
 				break;
 			}
 			case "6": {
@@ -1697,170 +1775,643 @@ public class InterfacesDeUsuario {
 
 		} while (!eleccion.equals("7"));
 	}
-	/**TODO Pide al usuario datos y después añade el nuevo Alquiler al TreeMap.
+	/**Pide al usuario datos y después añade el nuevo Alquiler al TreeMap.
 	 * 
 	 * @param emp
 	 */
 	public static void CrearAlquiler(Empresa emp) {
 		@SuppressWarnings("resource")
 		Scanner lector = new Scanner(System.in);
-		String codigo, ofi;
+		String codigo, ofi, cate, matr, nom;
 		Oficina OficinaOriginal, OficinaPrev;
-		int año, mes, dia;
-		boolean mismaOficina = false, menor25 = false;
+		int año, mes, dia, Ndias;
+		double importe = 0;
+		boolean mismaOficina = false, menor25 = false, vehiExiste = false, emplExiste = false;
 		LocalDate FechaInicio, FechaFinPrev, FechaNac;
 		Set<String> Vehiculos;
-		
-		codigo = "" + (emp.getAlquileres().size() + 1);
-		
-		System.out.println("Oficinas:");
-		MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
-		System.out.println("");
+		Vehiculo v;
+		Empleado e = null;
+		Cliente c;
 
+		System.out.println("Puede escribir 'salir' para cancelar.");
 		do {
-			System.out.println("Elija una oficina de inicio: ");
-			ofi = lector.nextLine();
+			System.out.println("Nombre Completo del empleado(Ap1 Ap2, Nombre): ");
+			nom = lector.nextLine();
 
-			if(!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR")) {
-				System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
+//			Comprueba que el nombre exista dentro del Treemap de Empleados.
+			if(!emp.getEmpleados().containsKey(nom)) {
+				if (!nom.equalsIgnoreCase("SALIR")) {
+					System.out.println("El empleado no existe, mire el listado e intentelo de nuevo.");
+				}
+			} else {
+				emplExiste = true;
 			}
-			System.out.println("");
-		} while (!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR"));
+		} while(!emp.getEmpleados().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
 
-		if (!ofi.equalsIgnoreCase("SALIR")) {
-			OficinaOriginal = emp.getOficinas().get(ofi);
+		if (emplExiste) {
+
+			codigo = "" + (emp.getAlquileres().size() + 1);
 			
+			e = emp.getEmpleados().get(nom);
+			
+			System.out.println("Oficinas:");
+			MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
+			System.out.println("");
+
 			do {
-				System.out.println("Elija una oficina de devolución: ");
+				System.out.println("Elija una oficina de inicio (salir para cancelar): ");
 				ofi = lector.nextLine();
 
-				if(!emp.getOficinas().containsKey(ofi)) {
+				if(!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR")) {
 					System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
 				}
 				System.out.println("");
-			} while (!emp.getOficinas().containsKey(ofi));
-			
-			OficinaPrev = emp.getOficinas().get(ofi);
-			
-			mismaOficina = OficinaOriginal.equals(OficinaPrev);
-			
-			System.out.println("Fecha Inicio.");
-			System.out.print("Día: ");
-			dia = lector.nextInt();
+			} while (!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR"));
 
-			System.out.print("Mes: ");
-			mes = lector.nextInt();
+			if (!ofi.equalsIgnoreCase("SALIR")) {
+				OficinaOriginal = emp.getOficinas().get(ofi);
 
-			System.out.print("Año: ");
-			año = lector.nextInt();
-			lector.nextLine();
+				do {
+					System.out.println("Elija una oficina de devolución: ");
+					ofi = lector.nextLine();
 
-			FechaInicio = LocalDate.of(año, mes, dia);
-			System.out.println();
-			
-			System.out.println("Fecha Fin Prevista.");
-			System.out.print("Día: ");
-			dia = lector.nextInt();
+					if(!emp.getOficinas().containsKey(ofi)) {
+						System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
+					}
+					System.out.println("");
+				} while (!emp.getOficinas().containsKey(ofi));
 
-			System.out.print("Mes: ");
-			mes = lector.nextInt();
+				OficinaPrev = emp.getOficinas().get(ofi);
 
-			System.out.print("Año: ");
-			año = lector.nextInt();
-			lector.nextLine();
+				mismaOficina = OficinaOriginal.equals(OficinaPrev);
 
-			FechaFinPrev = LocalDate.of(año, mes, dia);
-			System.out.println();
-			
-			System.out.println("Fecha z.");
-			System.out.print("Día: ");
-			dia = lector.nextInt();
+				System.out.println("Categorias:");
+				MostrarListado(new TreeMap<String, Object>(emp.getCategorias()));
+				System.out.println("");
 
-			System.out.print("Mes: ");
-			mes = lector.nextInt();
+				do {
+					System.out.println("Elija una categoría: ");
+					cate = lector.nextLine();
 
-			System.out.print("Año: ");
-			año = lector.nextInt();
-			lector.nextLine();
+					if(!emp.getCategorias().containsKey(cate) && !cate.equalsIgnoreCase("SALIR")) {
+						System.out.println("Esa categoría no existe, pruebe de nuevo o escriba salir para cancelar (no se creará el alquiler).");
+					}
+					System.out.println("");
+				} while (!emp.getCategorias().containsKey(cate) && !cate.equalsIgnoreCase("SALIR"));
 
-			FechaNac = LocalDate.of(año, mes, dia);
-			System.out.println();
-			
-			Vehiculos = emp.getVehiculos().keySet();
 
-			for (String i: Vehiculos) {
-				if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal)) {
-					System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(dia));
+				if (!cate.equalsIgnoreCase("SALIR")) {
+
+					System.out.println("Fecha Inicio.");
+					System.out.print("Día: ");
+					dia = lector.nextInt();
+
+					System.out.print("Mes: ");
+					mes = lector.nextInt();
+
+					System.out.print("Año: ");
+					año = lector.nextInt();
+					lector.nextLine();
+
+					FechaInicio = LocalDate.of(año, mes, dia);
+					System.out.println();
+
+					do {
+						System.out.println("Fecha Fin Prevista.");
+						System.out.print("Día: ");
+						dia = lector.nextInt();
+
+						System.out.print("Mes: ");
+						mes = lector.nextInt();
+
+						System.out.print("Año: ");
+						año = lector.nextInt();
+						lector.nextLine();
+
+						FechaFinPrev = LocalDate.of(año, mes, dia);
+						System.out.println();
+
+						if(FechaInicio.isAfter(FechaFinPrev)) {
+							System.out.println("Fecha Inváida, la fecha final no puede ser anterior a la inicial.");
+						}
+					} while(FechaInicio.isAfter(FechaFinPrev));
+
+					System.out.println("Fecha Nacimiento.");
+					System.out.print("Día: ");
+					dia = lector.nextInt();
+
+					System.out.print("Mes: ");
+					mes = lector.nextInt();
+
+					System.out.print("Año: ");
+					año = lector.nextInt();
+					lector.nextLine();
+
+					FechaNac = LocalDate.of(año, mes, dia);
+					System.out.println();
+
+					Ndias = Period.between(FechaInicio, FechaFinPrev).getDays();
+
+					LocalDate hoy = LocalDate.now();
+					menor25 = Period.between(FechaNac, hoy).getYears() > 25;
+
+					Vehiculos = emp.getVehiculos().keySet();
+
+					System.out.println("--- COMBUSTIÓN ---");
+					for (String i: Vehiculos) {
+						boolean EsCombustion = emp.getVehiculos().get(i).getClass().getSimpleName().equals("CocheC") || emp.getVehiculos().get(i).getClass().getSimpleName().equals("Furgoneta");
+
+						if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal) && EsCombustion && emp.getVehiculos().get(i).getCategoria().getCodigo().equals(cate)) {
+							System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25) + " €");
+							System.out.println();
+						}
+					}
+
+					System.out.println("--- ELÉCTRICOS ---");
+					for (String i: Vehiculos) {
+						boolean EsElectrico = emp.getVehiculos().get(i).getClass().getSimpleName().equals("CocheE") || emp.getVehiculos().get(i).getClass().getSimpleName().equals("Moto");
+
+						if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal) && EsElectrico && emp.getVehiculos().get(i).getCategoria().getCodigo().equals(cate)) {
+							System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25) + " €");
+							System.out.println();
+						}
+					}
+					System.out.println("");
+
+
+					System.out.println("Puede escribir 'salir' para cancelar.");
+					do {
+						System.out.print("Escriba la matricula de un vehículo para escogerlo (salir para cancelar): ");
+						matr = lector.nextLine();
+
+//						Comprueba que el vehiculo exista.
+						if(!emp.getVehiculos().containsKey(matr)) {
+							if (!matr.equalsIgnoreCase("SALIR")) {
+								System.out.println("El vehículo que busca no existe, mire el listado e intentelo de nuevo.");
+							}
+						} else {
+							vehiExiste = true;
+						}
+					} while(!emp.getVehiculos().containsKey(matr) && !matr.equalsIgnoreCase("SALIR"));
+
+					if (vehiExiste) {
+						v = emp.getVehiculos().get(matr);
+						importe = v.CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25);
+						
+						c = SelectorCliente(emp, FechaNac);
+						
+						emp.AlquilarVehiculo(v);
+						
+						Alquiler a = new Alquiler(codigo, v, e, c, OficinaOriginal, FechaInicio, FechaFinPrev, importe, OficinaPrev);
+						emp.AñadirAlquiler(a);
+						System.out.println("El alquiler ha sido creado con código: " + codigo + ".");
+					}
 				}
+
 			}
-			System.out.println("");
-			
-			
-			
+			System.out.println();
 		}
-		
-		
+
+
 		
 		
 		
 	}
-	/**TODO Pide al usuario datos y después completa el Alquiler.
+	/**Pide al usuario datos y después completa el Alquiler.
 	 * 
 	 * @param emp
 	 */
 	public static void CompletarAlquiler(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String codigo, ofi, nom;
+		boolean emplExiste = false;
+		double kms, ofiDif = 0, ofiAero = 0, FechaPas = 0, importeReal;
+		int año, mes, dia;
+		Oficina o;
+		Empleado e;
+		LocalDate FechaFinReal;
 		
+		System.out.println("Puede escribir 'salir' para cancelar.");
+		do {
+			System.out.println("Nombre Completo del empleado(Ap1 Ap2, Nombre): ");
+			nom = lector.nextLine();
+
+//			Comprueba que el nombre exista dentro del Treemap de Empleados.
+			if(!emp.getEmpleados().containsKey(nom)) {
+				if (!nom.equalsIgnoreCase("SALIR")) {
+					System.out.println("El empleado no existe, mire el listado e intentelo de nuevo.");
+				}
+			} else {
+				emplExiste = true;
+			}
+		} while(!emp.getEmpleados().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
+
+		if (emplExiste) {
+			
+			e = emp.getEmpleados().get(nom);
+			
+			do {
+				System.out.println("Código del Alquiler(salir para cancelar): ");
+				codigo = lector.nextLine();
+
+//				Comprueba que el alquiler exista.
+				if(!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR")) {
+					System.out.println("El alquiler no existe, mire el listado e intentelo de nuevo.");
+				}
+			} while(!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR"));
+
+			if (!codigo.equalsIgnoreCase("SALIR")) {
+				
+				System.out.println("Oficinas:");
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
+				System.out.println("");
+
+				do {
+					System.out.println("Elija una oficina de entrega: ");
+					ofi = lector.nextLine();
+
+					if(!emp.getOficinas().containsKey(ofi)) {
+						System.out.println("Esa oficina no existe, pruebe de nuevo.");
+					}
+					System.out.println("");
+				} while (!emp.getOficinas().containsKey(ofi));
+				
+				o = emp.getOficinas().get(ofi);
+				
+				System.out.print("Kilómetros recorridos: ");
+				kms = lector.nextDouble();
+				lector.nextLine();
+				
+				do {
+					System.out.println("Fecha Fin Prevista.");
+					System.out.print("Día: ");
+					dia = lector.nextInt();
+
+					System.out.print("Mes: ");
+					mes = lector.nextInt();
+
+					System.out.print("Año: ");
+					año = lector.nextInt();
+					lector.nextLine();
+
+					FechaFinReal = LocalDate.of(año, mes, dia);
+					System.out.println();
+
+					if(emp.getAlquileres().get(codigo).getFechaInicio().isAfter(FechaFinReal)) {
+						System.out.println("Fecha Inváida, la fecha final no puede ser anterior a la inicial.");
+					}
+					
+				} while(emp.getAlquileres().get(codigo).getFechaInicio().isAfter(FechaFinReal));
+				
+				if(!emp.getAlquileres().get(codigo).getOficinaPrev().equals(o)) {
+					ofiDif = emp.getAlquileres().get(codigo).getImporteTotal() * 0.20;
+				}
+				
+				if(!emp.getAlquileres().get(codigo).getOficinaPrev().equals(o) && o.getAeropuerto()) {
+					ofiAero = emp.getAlquileres().get(codigo).getImporteTotal() * 0.10;
+				}
+				
+				if(emp.getAlquileres().get(codigo).getFechaFinPrev().isBefore(FechaFinReal)) {
+					FechaPas = ofiAero = emp.getAlquileres().get(codigo).getImporteTotal() * 0.10;
+				}
+				
+				importeReal = emp.getAlquileres().get(codigo).getImporteTotal() + ofiDif + ofiAero + FechaPas;
+				
+				emp.getAlquileres().get(codigo).rellenarAlquiler(o, kms, FechaFinReal, e, importeReal);
+				
+//				Modificamos los datos de vehiculo una vez ha sido entregado
+				emp.DesAlquilarVehiculo(emp.getAlquileres().get(codigo).getVehiculo());
+				emp.getAlquileres().get(codigo).getVehiculo().AñadirKms(kms);
+				emp.getAlquileres().get(codigo).getVehiculo().TransladarDeOficina(o);
+			}
+		}
 	}
-	/**TODO Le pide al usuario la key de un Alquiler y crea un nuevo Alquiler pero colocando la misma key.
+	/**Le pide al usuario la key de un Alquiler y crea un nuevo Alquiler pero colocando la misma key.
 	 * 
 	 * @param emp
 	 */
 	public static void ModificarAlquiler(Empresa emp) {
-		
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String codigo, ofi, cate, matr, nom;
+		Oficina OficinaOriginal, OficinaPrev;
+		int año, mes, dia, Ndias;
+		double importe = 0;
+		boolean mismaOficina = false, menor25 = false, vehiExiste = false, emplExiste = false;
+		LocalDate FechaInicio, FechaFinPrev, FechaNac;
+		Set<String> Vehiculos;
+		Vehiculo v;
+		Empleado e = null;
+		Cliente c;
+
+		do {
+			System.out.println("Introduzca el código del alquiler que quiere modificar(salir para cancelar.)");
+			codigo = lector.nextLine();
+
+			if (!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR")) {
+				System.out.println("El alquiler que busca no existe. Mire el listado y pruebe de nuevo.");
+			}
+
+		} while(!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR"));
+
+		if(!codigo.equalsIgnoreCase("SALIR")) {
+
+			System.out.println("Puede escribir 'salir' para cancelar.");
+			do {
+				System.out.println("Nombre Completo del empleado(Ap1 Ap2, Nombre): ");
+				nom = lector.nextLine();
+
+//				Comprueba que el nombre exista dentro del Treemap de Empleados.
+				if(!emp.getEmpleados().containsKey(nom)) {
+					if (!nom.equalsIgnoreCase("SALIR")) {
+						System.out.println("El empleado no existe, mire el listado e intentelo de nuevo.");
+					}
+				} else {
+					emplExiste = true;
+				}
+			} while(!emp.getEmpleados().containsKey(nom) && !nom.equalsIgnoreCase("SALIR"));
+
+			if (emplExiste) {
+
+				e = emp.getEmpleados().get(nom);
+				
+				System.out.println("Oficinas:");
+				MostrarListado(new TreeMap<String, Object>(emp.getOficinas()));
+				System.out.println("");
+
+				do {
+					System.out.println("Elija una oficina de inicio (salir para cancelar): ");
+					ofi = lector.nextLine();
+
+					if(!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR")) {
+						System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se modificará el alquiler).");
+					}
+					System.out.println("");
+				} while (!emp.getOficinas().containsKey(ofi) && !ofi.equalsIgnoreCase("SALIR"));
+
+				if (!ofi.equalsIgnoreCase("SALIR")) {
+					OficinaOriginal = emp.getOficinas().get(ofi);
+
+					do {
+						System.out.println("Elija una oficina de devolución: ");
+						ofi = lector.nextLine();
+
+						if(!emp.getOficinas().containsKey(ofi)) {
+							System.out.println("Esa oficina no existe, pruebe de nuevo o escriba salir para cancelar (no se modificará el alquiler).");
+						}
+						System.out.println("");
+					} while (!emp.getOficinas().containsKey(ofi));
+
+					OficinaPrev = emp.getOficinas().get(ofi);
+
+					mismaOficina = OficinaOriginal.equals(OficinaPrev);
+
+					System.out.println("Categorias:");
+					MostrarListado(new TreeMap<String, Object>(emp.getCategorias()));
+					System.out.println("");
+
+					do {
+						System.out.println("Elija una categoría: ");
+						cate = lector.nextLine();
+
+						if(!emp.getCategorias().containsKey(cate) && !cate.equalsIgnoreCase("SALIR")) {
+							System.out.println("Esa categoría no existe, pruebe de nuevo o escriba salir para cancelar (no se modificará el alquiler).");
+						}
+						System.out.println("");
+					} while (!emp.getCategorias().containsKey(cate) && !cate.equalsIgnoreCase("SALIR"));
+
+
+					if (!cate.equalsIgnoreCase("SALIR")) {
+
+						System.out.println("Fecha Inicio.");
+						System.out.print("Día: ");
+						dia = lector.nextInt();
+
+						System.out.print("Mes: ");
+						mes = lector.nextInt();
+
+						System.out.print("Año: ");
+						año = lector.nextInt();
+						lector.nextLine();
+
+						FechaInicio = LocalDate.of(año, mes, dia);
+						System.out.println();
+
+						do {
+							System.out.println("Fecha Fin Prevista.");
+							System.out.print("Día: ");
+							dia = lector.nextInt();
+
+							System.out.print("Mes: ");
+							mes = lector.nextInt();
+
+							System.out.print("Año: ");
+							año = lector.nextInt();
+							lector.nextLine();
+
+							FechaFinPrev = LocalDate.of(año, mes, dia);
+							System.out.println();
+
+							if(FechaInicio.isAfter(FechaFinPrev)) {
+								System.out.println("Fecha Inváida, la fecha final no puede ser anterior a la inicial.");
+							}
+						} while(FechaInicio.isAfter(FechaFinPrev));
+
+						System.out.println("Fecha Nacimiento.");
+						System.out.print("Día: ");
+						dia = lector.nextInt();
+
+						System.out.print("Mes: ");
+						mes = lector.nextInt();
+
+						System.out.print("Año: ");
+						año = lector.nextInt();
+						lector.nextLine();
+
+						FechaNac = LocalDate.of(año, mes, dia);
+						System.out.println();
+
+						Ndias = Period.between(FechaInicio, FechaFinPrev).getDays();
+
+						LocalDate hoy = LocalDate.now();
+						menor25 = Period.between(FechaNac, hoy).getYears() > 25;
+
+						Vehiculos = emp.getVehiculos().keySet();
+
+						System.out.println("--- COMBUSTIÓN ---");
+						for (String i: Vehiculos) {
+							boolean EsCombustion = emp.getVehiculos().get(i).getClass().getSimpleName().equals("CocheC") || emp.getVehiculos().get(i).getClass().getSimpleName().equals("Furgoneta");
+
+							if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal) && EsCombustion && emp.getVehiculos().get(i).getCategoria().getCodigo().equals(cate)) {
+								System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25) + " €");
+								System.out.println();
+							}
+						}
+
+						System.out.println("--- ELÉCTRICOS ---");
+						for (String i: Vehiculos) {
+							boolean EsElectrico = emp.getVehiculos().get(i).getClass().getSimpleName().equals("CocheE") || emp.getVehiculos().get(i).getClass().getSimpleName().equals("Moto");
+
+							if(emp.getVehiculos().get(i).getOficinaActual().equals(OficinaOriginal) && EsElectrico && emp.getVehiculos().get(i).getCategoria().getCodigo().equals(cate)) {
+								System.out.println(emp.getVehiculos().get(i) + " | " + emp.getVehiculos().get(i).CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25) + " €");
+								System.out.println();
+							}
+						}
+						System.out.println("");
+
+
+						System.out.println("Puede escribir 'salir' para cancelar.");
+						do {
+							System.out.print("Escriba la matricula de un vehículo para escogerlo (salir para cancelar): ");
+							matr = lector.nextLine();
+
+//							Comprueba que el vehiculo exista.
+							if(!emp.getVehiculos().containsKey(matr)) {
+								if (!matr.equalsIgnoreCase("SALIR")) {
+									System.out.println("El vehículo que busca no existe, mire el listado e intentelo de nuevo.");
+								}
+							} else {
+								vehiExiste = true;
+							}
+						} while(!emp.getVehiculos().containsKey(matr) && !matr.equalsIgnoreCase("SALIR"));
+
+						if (vehiExiste) {
+							v = emp.getVehiculos().get(matr);
+							importe = v.CalcularImporte(Ndias, mismaOficina, OficinaPrev, menor25);
+
+							c = SelectorCliente(emp, FechaNac);
+
+							emp.AlquilarVehiculo(v);
+
+							Alquiler a = new Alquiler(codigo, v, e, c, OficinaOriginal, FechaInicio, FechaFinPrev, importe, OficinaPrev);
+							emp.AñadirAlquiler(a);
+						}
+					}
+
+				}
+				System.out.println();
+			}
+		}
 	}
-	/**TODO Le pide al usuario la key de un Alquiler y lo borra.
+	/**Le pide al usuario la key de un Alquiler y lo borra.
 	 * 
 	 * @param emp
 	 */
 	public static void EliminarAlquiler(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String codigo;
 		
+		do {
+			System.out.println("Introduzca el código del alquiler que quiere eliminar(salir para cancelar.)");
+			codigo = lector.nextLine();
+			
+			if (!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR")) {
+				System.out.println("EL alquiler que busca no existe. Mire el listado y pruebe de nuevo.");
+			}
+			
+		} while(!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR"));
+		
+		if(!codigo.equalsIgnoreCase("SALIR")) {
+			emp.BorrarAlquiler(codigo);
+		}
 	}
-	/**TODO Pide al usuario la key de un Alquiler y muestra los datos de este.
+	/**Pide al usuario la key de un Alquiler y muestra los datos de este.
 	 * 
 	 * @param emp
 	 */
 	public static void BuscarAlquiler(Empresa emp) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String codigo;
 		
+		do {
+			System.out.println("Introduzca el código del alquiler que busca(salir para cancelar.)");
+			codigo = lector.nextLine();
+			
+			if (!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR")) {
+				System.out.println("EL alquiler que busca no existe. Mire el listado y pruebe de nuevo.");
+			}
+			
+		} while(!emp.getAlquileres().containsKey(codigo) && !codigo.equalsIgnoreCase("SALIR"));
+		
+		if(!codigo.equalsIgnoreCase("SALIR")) {
+			System.out.println(emp.getAlquileres().get(codigo));
+		}
 	}
-	/**TODO Muestra el menu de listados de Alquiler al usuario y llama al metodo del listado que elija.
+	/**Muestra el menu de listados de Alquiler al usuario y llama al metodo del listado que elija.
 	 * 
 	 * @param emp
 	 */
-	public static void ListadosAlquiler(Empresa emp) {
-		String[] l = {"1 - NOMBRE", "2 - FECHA DE ALTA", "3 - OFICINA", "4 - ATRÁS"};
-		String eleccion;
-
-		do {
-			eleccion = MenuOpciones("ORDENAR POR:", "-", l, "1-2-3-4", "-", "Introduzca que opción quiere elegir: ", "Esa opción no es válida, pruebe de nuevo.");
-
-			switch (eleccion) {
-			case "1": {
-				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()));
-				break;
-			}
-			case "2": {
-				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()), new EmpleadoFechaAlta());
-				break;
-			}
-			case "3": {
-				MostrarListado(new TreeMap<String, Object>(emp.getEmpleados()), new EmpleadoOficina());
-				break;
-			}
-			}
-		} while (!eleccion.equals("4"));
+	public static void ListadoAlquiler(Empresa emp) {
+		MostrarListado(new TreeMap<String, Object>(emp.getAlquileres()));
 	}
 	
-	
+	/**Pide al usuario un cliente existente o llama a un metodo que crea uno nuevo.
+	 * 
+	 * @param emp
+	 * @param fecNac
+	 * @return
+	 */
+	public static Cliente SelectorCliente(Empresa emp, LocalDate fecNac) {
+		@SuppressWarnings("resource")
+		Scanner lector = new Scanner(System.in);
+		String nc, nombre, ap1, ap2, nomcompl;
+		boolean nuevoCliente = false, clilExiste = false;
+		Cliente c = null;
+
+		do {
+			System.out.print("¿Quiere crea un nuevo Cliente?(S/N): ");
+			nc = lector.nextLine();
+
+			if (!nc.equalsIgnoreCase("S") && !nc.equalsIgnoreCase("N")) {
+				System.out.println("Carácter ínvalido.");
+			} else if(nc.equalsIgnoreCase("S")) {
+				nuevoCliente = true;
+			}
+		} while(!nc.equalsIgnoreCase("S") && !nc.equalsIgnoreCase("N"));
+
+		if (nuevoCliente) {
+
+			do {
+				System.out.print("Nombre: ");
+				nombre = lector.nextLine();
+
+				System.out.print("Primer apellido: ");
+				ap1 = lector.nextLine();
+
+				System.out.print("Segundo apellido: ");
+				ap2 = lector.nextLine();
+
+				nomcompl = ap1 + " " + ap2 + ", " + nombre;
+
+				CrearCliente(emp, nombre, ap1, ap2, fecNac);
+
+			} while(!emp.getClientes().containsKey(nomcompl));
+			
+			c = emp.getClientes().get(nomcompl);
+			
+		} else {
+
+			do {
+				System.out.println("Nombre Completo del cliente que quiere usar (Ap1 Ap2, Nombre): ");
+				nomcompl = lector.nextLine();
+
+//			Comprueba que el nombre exista dentro del Treemap de Clientes.
+				if(!emp.getClientes().containsKey(nomcompl)) {
+						System.out.println("El cliente que busca no existe, mire el listado e intentelo de nuevo.");
+				} else {
+					clilExiste = true;
+				}
+			} while(!emp.getClientes().containsKey(nomcompl));
+
+			if (clilExiste) {
+				c = emp.getClientes().get(nomcompl);
+			}
+		}
+		return c;
+	}
 
 	//	--- GESTION DE CATEGORIAS ---
 

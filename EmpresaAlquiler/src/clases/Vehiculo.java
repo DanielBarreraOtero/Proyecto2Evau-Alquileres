@@ -121,7 +121,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	
 	@Override
 	public String toString () {
-		return Matricula + ", " + Marca + ", " + Modelo + " " + Kms + "Kms | " + Categoria + " | Fecha Alta: " + FechaAlta + ". Oficina Altual :" + OficinaActual;
+		return Matricula + ", " + Marca + ", " + Modelo + " " + Kms + "Kms | " + Categoria + " | Fecha Alta: " + FechaAlta + ". \nOficina Actual :" + OficinaActual;
 	}
 	@Override
 	public int compareTo(Vehiculo o) {
@@ -132,7 +132,12 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		Vehiculo p = (Vehiculo) o;
 		return Matricula.equals(p.getMatricula());
 	}
-	abstract public double CalcularImporte(int dias);
+	/**Para calcular el primer importe que se le enseña al usuario en el listado.
+	 * Si la oficina en la que se encuetra el coche es un aeropuerto se le aplica otro 10%.
+	 * Si la oficina de devolucion es diferente a la actual se le aplica otro 10%.
+	 * Si el cliente es menor de 25 años se le aplica otro 5%.
+	 */
+	abstract public double CalcularImporte(int dias, boolean mismaOficina, Oficina oficinaDev, boolean menor25);
 	public void AñadirKms(Double kms) {
 		setKms(Kms+kms);
 	}

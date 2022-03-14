@@ -1,23 +1,14 @@
 package principal;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.TreeMap;
 
-import clases.Categoria;
-import clases.Empleado;
 import clases.Empresa;
-import clases.Oficina;
-import clases.Persona;
 import metodosSer.Serializacion;
 import metodosUI.InterfacesDeUsuario;
-import miscomparadores.PersonaNombreCompleto;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Empresa emp = null;
 		String[] m = new String[9];
